@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="2ba35667-69b4-41d4-b39e-78770c1bb445">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+E:/HKII 2019-2020/Java_Programming/Project_2/Conference Management/src/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/ql_hoinghi</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="DB:hibernate.cfg.xml/Hibernate" uuid="dfd27ac6-f8b2-4fd7-a802-ffd35cb2605c">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+E:/HKII 2019-2020/Java_Programming/Project_2/Conference Management/src/DB/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/ql_hoinghi</jdbc-url>
+    </data-source>
+  </component>
+</project>

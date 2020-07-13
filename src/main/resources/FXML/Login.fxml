@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="authentification.AuthenticationController">
+   <children>
+      <AnchorPane fx:id="rootAnchorPane" prefHeight="420.0" prefWidth="800.0" stylesheets="@../css/fullpackstyling.css">
+         <children>
+            <StackPane fx:id="rootPane" prefHeight="420.0" prefWidth="806.0">
+               <children>
+                  <BorderPane fx:id="rootBorderPane" prefHeight="420.0" prefWidth="806.0">
+                     <left>
+                        <Pane prefHeight="450.0" prefWidth="450.0" styleClass="linear-grad" stylesheets="@../css/fullpackstyling.css" BorderPane.alignment="CENTER">
+                           <children>
+                              <ImageView fitHeight="110.0" fitWidth="110.0" layoutX="170.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/app_icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="159.0" layoutY="235.0" text="HeliosCOMS" textFill="#e1d8d8">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="90.0" layoutY="271.0" text="Online Conference Mangement Software" textFill="#e1d8d8">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <HBox layoutX="14.0" layoutY="14.0">
+                                 <children>
+                                    <ImageView fx:id="btnExit" fitHeight="12.0" fitWidth="12.0" onMouseClicked="#handleMouseClicked" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/icon_button_close.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="btnMinimize" fitHeight="13.0" fitWidth="13.0" onMouseClicked="#handleMouseClicked" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/icon_button_minimize.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </Pane>
+                     </left>
+                     <center>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Pane fx:id="paneSignUp" prefHeight="420.0" prefWidth="350.0" style="-fx-background-color: #fff;">
+                                 <children>
+                                    <ImageView fx:id="btnArrowBack" fitHeight="30.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#handleMouseClicked" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/icon_arrow_back.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="44.0" layoutY="38.0" prefHeight="30.0" prefWidth="91.0" text="Sign Up">
+                                       <font>
+                                          <Font name="Ebrima Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="tfRegisterDisplayName" labelFloat="true" layoutX="44.0" layoutY="100.0" prefHeight="30.0" prefWidth="250.0" promptText="Display Name" />
+                                    <JFXTextField fx:id="tfRegisterEmail" labelFloat="true" layoutX="44.0" layoutY="165.0" prefHeight="30.0" prefWidth="250.0" promptText="Email" />
+                                    <JFXTextField fx:id="tfRegisterUsername" labelFloat="true" layoutX="44.0" layoutY="230.0" prefHeight="30.0" prefWidth="250.0" promptText="Username" />
+                                    <JFXPasswordField fx:id="tfRegisterPassword" labelFloat="true" layoutX="44.0" layoutY="295.0" prefHeight="30.0" prefWidth="250.0" promptText="Password" />
+                                    <Button fx:id="btnSignUp" layoutX="184.0" layoutY="356.0" mnemonicParsing="false" onAction="#handleSignUpButton" prefHeight="35.0" prefWidth="110.0" styleClass="button-login" stylesheets="@../css/fullpackstyling.css" text="Sign up" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="paneSignIn" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;">
+                                 <children>
+                                    <Button fx:id="btnSignIn" layoutX="193.0" layoutY="246.0" mnemonicParsing="false" onAction="#handleSignInButton" prefHeight="35.0" prefWidth="110.0" styleClass="button-login" stylesheets="@../css/fullpackstyling.css" text="Sign in" />
+                                    <Button fx:id="btnSwitchToSignUp" layoutX="53.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="250.0" styleClass="button1" stylesheets="@../css/fullpackstyling.css" text="Don't have account ? Sign up" />
+                                    <Label fx:id="lbForgotPassword" layoutX="53.0" layoutY="254.0" onMouseClicked="#handleMouseClicked" styleClass="label-link" stylesheets="@../css/fullpackstyling.css" text="Forgot Password ?">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="53.0" layoutY="40.0" text="Welcome Back, ">
+                                       <font>
+                                          <Font name="Ebrima Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lbGuestSignIn" layoutX="113.0" layoutY="385.0" onMouseClicked="#handleMouseClicked" styleClass="label-link" stylesheets="@../css/fullpackstyling.css" text="Continue as a guest" textFill="#1100ff">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="53.0" layoutY="66.0" prefHeight="17.0" prefWidth="156.0" text="Sign in to continue" textFill="#8c8b8b">
+                                       <font>
+                                          <Font name="Ebrima" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="tfUserName" labelFloat="true" layoutX="53.0" layoutY="120.0" prefHeight="30.0" prefWidth="250.0" promptText="Username" />
+                                    <JFXPasswordField fx:id="tfPassword" labelFloat="true" layoutX="53.0" layoutY="185.0" prefHeight="30.0" prefWidth="250.0" promptText="Password" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </StackPane>
+                     </center>
+                  </BorderPane>
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
