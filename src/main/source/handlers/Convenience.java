@@ -21,12 +21,20 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
+ * This class contains the convenience methods for switching the scenes in the app,
+ * showing alerts to the user, getting the window of the node or the event, etc.
  * @created on 7/11/2020
  * @author: Helios - 1712018
  */
 public final class Convenience {
     private static JFXDialog previousDialog;
 
+    /***
+     * Switch the current scene to the specified scene
+     * @param windows the main window where the scene should be displayed in
+     * @param destination location of the fxml file which is to be loaded
+     * @throws IOException throws if destination could not be loaded
+     */
     public static void switchScene(Stage windows, URL destination) throws IOException{
         windows.close();
         Parent root = FXMLLoader.load(destination);
@@ -35,10 +43,24 @@ public final class Convenience {
         windows.show();
     }
 
+    /***
+     * Switches the current scene to the specified scene.
+     * Gets the window of the event and calls {@link #switchScene(Stage, URL)}
+     * @param event the event which invoked the change of scene
+     * @param destination location of the fxml file which is to be loaded
+     * @throws IOException throws if destination could not be loaded
+     */
     public static void switchScene(Event event, URL destination) throws IOException{
         switchScene(getWindow(event),destination);
     }
 
+    /***
+     * Switches the current scene to the specified scene.
+     * Gets the window of the node and calls {@link #switchScene(Stage, URL)}
+     * @param node any node which is located in the current scene
+     * @param destination location of the fxml file which is to be loaded
+     * @throws IOException throws if destination could not be loaded
+     */
     public static void switchScene(Node node, URL destination) throws IOException{
         switchScene(getWindow(node),destination);
     }
@@ -69,6 +91,13 @@ public final class Convenience {
         customAlert.showAlert(rootPane,nodeToBlur,header, body);
     }
 
+    /***
+     * Pops up a dialog with custom content
+     * @param stackPane pane on that the dialog should appear
+     * @param paneToBlur pane that the blur effect should affect
+     * @param fxmlUrl the content of the dialog
+     * @throws IOException throws if the content could not be loaded
+     */
     public static <T> T popupDialog(StackPane stackPane, Pane paneToBlur, URL fxmlUrl) throws IOException {
         closePreviousDialog();
 
@@ -87,12 +116,19 @@ public final class Convenience {
         return loader.getController();
     }
 
+    /***
+     * Closes the previously opened dialog.
+     */
     public static void closePreviousDialog(){
         if(previousDialog!=null){
             previousDialog.close();
         }
     }
 
+    /***
+     * Return the currently dialog
+     * @return
+     */
     public static JFXDialog getDialog(){
         return previousDialog;
     }

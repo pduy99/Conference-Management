@@ -7,6 +7,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * Class which handles loss of internet connection,
+ * displays a Pop Up with the respective message,
+ * polls the server in a loop until connection is reestablished
+ * and locks the UI in the meanwhile
  * @created on 7/12/2020
  * @author: Helios - 1712018
  */
@@ -21,6 +25,9 @@ public class NoInternet implements Initializable {
         pollServer();
     }
 
+    /**
+     * Method which polls the server in the loop until connection is reestablished
+     */
     private synchronized void pollServer(){
         Thread loop = new Thread(()->{
             while (!InternetHandler.checkInternetConnection()){
