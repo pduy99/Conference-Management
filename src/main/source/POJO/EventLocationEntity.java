@@ -3,6 +3,10 @@ package POJO;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * @created on 7/14/2020
+ * @author: Helios - 1712018
+ */
 @Entity
 @Table(name = "event_location", schema = "ql_hoinghi", catalog = "")
 public class EventLocationEntity {

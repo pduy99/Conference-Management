@@ -2,12 +2,18 @@ package POJO;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-@Entity
+/**
+ * @created on 7/14/2020
+ * @author: Helios - 1712018
+ */
+@Entity(name = "conference")
 @Table(name = "conference", schema = "ql_hoinghi", catalog = "")
 public class ConferenceEntity {
-    private int idConference;
+    private int id;
     private String shortDescription;
     private String detailDescription;
     private Timestamp time;
@@ -15,19 +21,20 @@ public class ConferenceEntity {
     private String name;
     private int capacity;
     private String image;
+    private Set<UserEntity> users = new HashSet<UserEntity>(0);
 
     @Id
-    @Column(name = "idConference", nullable = false)
-    public int getIdConference() {
-        return idConference;
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
     }
 
-    public void setIdConference(int idConference) {
-        this.idConference = idConference;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "Short_Description", nullable = true, length = 200)
+    @Column(name = "short_description", nullable = true, length = 200)
     public String getShortDescription() {
         return shortDescription;
     }
@@ -37,7 +44,7 @@ public class ConferenceEntity {
     }
 
     @Basic
-    @Column(name = "Detail_Description", nullable = true, length = 500)
+    @Column(name = "detail_description", nullable = true, length = 500)
     public String getDetailDescription() {
         return detailDescription;
     }
@@ -47,7 +54,7 @@ public class ConferenceEntity {
     }
 
     @Basic
-    @Column(name = "Time", nullable = false)
+    @Column(name = "time", nullable = false)
     public Timestamp getTime() {
         return time;
     }
@@ -57,7 +64,7 @@ public class ConferenceEntity {
     }
 
     @Basic
-    @Column(name = "Place", nullable = false, length = 200)
+    @Column(name = "place", nullable = false, length = 200)
     public String getPlace() {
         return place;
     }
@@ -67,7 +74,7 @@ public class ConferenceEntity {
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, length = 100)
     public String getName() {
         return name;
     }
@@ -77,7 +84,7 @@ public class ConferenceEntity {
     }
 
     @Basic
-    @Column(name = "Capacity", nullable = false)
+    @Column(name = "capacity", nullable = false)
     public int getCapacity() {
         return capacity;
     }
@@ -87,7 +94,7 @@ public class ConferenceEntity {
     }
 
     @Basic
-    @Column(name = "Image", nullable = false, length = 1024)
+    @Column(name = "Image", nullable = true, length = 1024)
     public String getImage() {
         return image;
     }
@@ -96,12 +103,21 @@ public class ConferenceEntity {
         this.image = image;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "conferences")
+    public Set<UserEntity> getUsers(){
+        return this.users;
+    }
+
+    public void setUsers(Set<UserEntity> users){
+        this.users = users;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ConferenceEntity that = (ConferenceEntity) o;
-        return idConference == that.idConference &&
+        return id == that.id &&
                 capacity == that.capacity &&
                 Objects.equals(shortDescription, that.shortDescription) &&
                 Objects.equals(detailDescription, that.detailDescription) &&
@@ -113,6 +129,16 @@ public class ConferenceEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idConference, shortDescription, detailDescription, time, place, name, capacity, image);
+        return Objects.hash(id, shortDescription, detailDescription, time, place, name, capacity, image);
     }
+
+    //Custom Constructor
+    public ConferenceEntity(String name, Timestamp time, String place, int capacity){
+        this.name = name;
+        this.time = time;
+        this.place = place;
+        this.capacity = capacity;
+    }
+
+    public ConferenceEntity(){};
 }

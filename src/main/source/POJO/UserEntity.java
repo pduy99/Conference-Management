@@ -1,50 +1,58 @@
 package POJO;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+/**
+ * @created on 7/14/2020
+ * @author: Helios - 1712018
+ */
 @Entity
 @Table(name = "user", schema = "ql_hoinghi", catalog = "")
 public class UserEntity {
-    private int iduser;
-    private String name;
-    private String userName;
+    private int id;
+    private String displayName;
+    private String username;
     private String password;
     private int role;
     private String email;
+    private Byte blocked;
+    private Set<ConferenceEntity> conferences = new HashSet<ConferenceEntity>(0);
 
     @Id
-    @Column(name = "iduser", nullable = false)
-    public int getIduser() {
-        return iduser;
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
     }
 
-    public void setIduser(int iduser) {
-        this.iduser = iduser;
-    }
-
-    @Basic
-    @Column(name = "Name", nullable = false, length = 100)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "User_name", nullable = false, length = 100)
-    public String getUserName() {
-        return userName;
+    @Column(name = "display_name", nullable = false, length = 100)
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @Basic
-    @Column(name = "Password", nullable = false, length = 100)
+    @Column(name = "username", nullable = false, length = 100)
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Basic
+    @Column(name = "password", nullable = false, length = 100)
     public String getPassword() {
         return password;
     }
@@ -54,7 +62,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Role", nullable = false)
+    @Column(name = "role", nullable = false)
     public int getRole() {
         return role;
     }
@@ -64,7 +72,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Email", nullable = false, length = 100)
+    @Column(name = "email", nullable = false, length = 100)
     public String getEmail() {
         return email;
     }
@@ -73,42 +81,60 @@ public class UserEntity {
         this.email = email;
     }
 
+    @Basic
+    @Column(name = "blocked", nullable = true)
+    public Byte getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Byte blocked) {
+        this.blocked = blocked;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(name = "user_conference",
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "conference_id")})
+    public Set<ConferenceEntity> getConferences(){
+        return this.conferences;
+    }
+
+    public void setConferences(Set<ConferenceEntity> conferences){
+        this.conferences = conferences;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return iduser == that.iduser &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(userName, that.userName) &&
+        return id == that.id &&
+                role == that.role &&
+                Objects.equals(displayName, that.displayName) &&
+                Objects.equals(username, that.username) &&
                 Objects.equals(password, that.password) &&
-                Objects.equals(role, that.role) &&
-                Objects.equals(email, that.email);
+                Objects.equals(email, that.email) &&
+                Objects.equals(blocked, that.blocked);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(iduser, name, userName, password, role, email);
+        return Objects.hash(id, displayName, username, password, role, email, blocked);
     }
 
-    public UserEntity(){}
 
-    /***
-     * Custom constructor
-     * @param displayName
-     * @param username
-     * @param password
-     * @param mail
-     */
+    //Custom Constructor
+    public UserEntity(String name, int role){
+        this.displayName = name;
+        this.role = role;
+    }
+
     public UserEntity(String displayName, String username, String password, String mail){
-        this.name = displayName;
-        this.userName = username;
+        this.displayName = displayName;
+        this.username = username;
         this.password = password;
         this.email = mail;
     }
+    public UserEntity(){}
 
-    public UserEntity(String displayName, int role){
-        this.name = displayName;
-        this.role = role;
-    }
 }
