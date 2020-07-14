@@ -1,11 +1,12 @@
 package authentification.recoverProcess;
 
 /**
+ * Class that controls the password recovery view (not completed)
  * @created on 7/13/2020
  * @author: Helios - 1712018
  */
 
-import DBController.UserController;
+import DAO.UserDAO;
 import alertsDialog.CustomAlertType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -90,7 +91,7 @@ public class RecoverController implements Initializable {
     }
 
     private boolean checkUserExist(String email){
-        if(UserController.findByEmail(email)!=null){
+        if(UserDAO.findByEmail(email)!=null){
             return true;
         }
         else{

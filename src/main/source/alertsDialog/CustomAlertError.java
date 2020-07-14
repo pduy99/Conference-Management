@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
 /**
+ * A class that represents the custom JFoenix error alert dialog
  * @created on 7/11/2020
  * @author: Helios - 1712018
  */

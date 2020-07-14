@@ -3,6 +3,7 @@ package authentification.loginProcess;
 import POJO.UserEntity;
 
 /**
+ * Singleton class that holds the instance of the current account logged into system
  * @created om 7/10/2020
  * @author: Helios - 1712018
  */
@@ -26,10 +27,18 @@ public class CurrentAccountSingleton {
         return result;
     }
 
+    /***
+     * Set the user instance equal to the argument
+     * @param user current user logging into system
+     */
     public void setAccount(UserEntity user){
         this.user = user;
     }
 
+    /***
+     * Get the current user logging into system
+     * @return
+     */
     public UserEntity getAccount(){
         return this.user;
     }

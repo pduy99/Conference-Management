@@ -1,7 +1,11 @@
 package authentification;
 
+/***
+ * Class that controls the login and sign up view
+ */
+
 import DB.DBConnection;
-import DBController.UserController;
+import DAO.UserDAO;
 import Utils.CustomValidator.EmailValidator;
 import Utils.CustomValidator.StrongPasswordValidator;
 import Utils.CustomValidator.UsernameValidator;
@@ -112,6 +116,11 @@ public class AuthenticationController implements Initializable {
 
     }
 
+    /***
+     * Method that handles the login process
+     * @param event method trigger {@link ActionEvent}
+     * @throws Exception {@link Exception}
+     */
     @FXML
     void handleSignInButton(ActionEvent event) throws Exception{
         String username = tfUserName.getText().trim();
@@ -136,6 +145,10 @@ public class AuthenticationController implements Initializable {
         }
     }
 
+    /***
+     * Method that handles the sign up process
+     * @param event method trigger {@link ActionEvent}
+     */
     @FXML
     void handleSignUpButton(ActionEvent event){
         if(validateRegisterForm()) {
@@ -145,10 +158,10 @@ public class AuthenticationController implements Initializable {
             String password = tfRegisterPassword.getText().trim();
 
             //Check whether username already exists
-            if (UserController.findByUserName(username) != null) {
-                showExistedUsernameAlertDialog();
+            if (UserDAO.findByUserName(username) != null) {
+                Convenience.showAlert(rootPane,rootBorderPane,CustomAlertType.ERROR,"Username already existed","Please choose another username");
             } else {
-                if (UserController.addUser(displayName, username, password, mail) == 0) {
+                if (UserDAO.addUser(displayName, username, password, mail) == 0) {
                     //Register successfully
 
                 } else {
@@ -159,6 +172,11 @@ public class AuthenticationController implements Initializable {
         }
     }
 
+    /***
+     * Method that set validator to fields of login form and sign up form
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         RequiredFieldValidator requiredFieldValidator = new RequiredFieldValidator();
@@ -192,27 +210,6 @@ public class AuthenticationController implements Initializable {
                 tfUserName.validate();
             }
         }));
-    }
-
-    public void showExistedUsernameAlertDialog(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/FXML/alert_error.fxml"));
-            Parent node = loader.load();
-            JFXButton button = (JFXButton) loader.getNamespace().get("btnConfirm");
-            BoxBlur blur = new BoxBlur(3,3,3);
-            JFXDialog dialog = new JFXDialog(rootPane,(Region)node ,JFXDialog.DialogTransition.TOP);
-            button.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
-                dialog.close();
-            });
-            dialog.show();
-            dialog.setOnDialogClosed((JFXDialogEvent e1)->{
-                rootBorderPane.setEffect(null);
-            });
-            rootBorderPane.setEffect(blur);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public boolean validateRegisterForm(){

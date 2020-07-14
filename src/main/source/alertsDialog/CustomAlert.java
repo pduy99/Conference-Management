@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 /**
+ * Abstract class that represents a base custom JFoenix dialog
  * @created on 7/11/2020
  * @author: Helios - 1712018
  */
