@@ -1,1 +1,1 @@
-# Conference-Management-JavaFX-
+# Conference Management (Work In Progress)  
