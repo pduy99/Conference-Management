@@ -129,6 +129,7 @@ public class AuthenticationController implements Initializable {
             UserLogin userLogin = new UserLogin();
             try {
                 userLogin.getAccount(username, password);
+                System.out.println("Login successfully");
                 //Sign in successfully
                 Convenience.switchScene(event,getClass().getResource("/FXML/Main.fxml"));
 
@@ -139,8 +140,8 @@ public class AuthenticationController implements Initializable {
                     Convenience.popupDialog(rootPane, rootBorderPane, getClass().getResource("/FXML/no_database.fxml"));
                 } else {
                     Convenience.showAlert(rootPane, rootBorderPane, CustomAlertType.ERROR, "Login error", "Username or password invalid");
-
                 }
+                ex.printStackTrace();
             }
         }
     }

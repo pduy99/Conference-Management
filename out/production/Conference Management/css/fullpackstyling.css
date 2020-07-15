@@ -4,6 +4,13 @@
 	-fx-font-size: 12pt;
 }
 
+.scroll-pane{
+	-fx-background-color: transparent;
+}
+.scroll-pane .viewport{
+	-fx-background-color: transparent;
+}
+
 .button-login{
 	-fx-background-color: #6F4CBB;
 	-fx-text-fill: #ffffff;
@@ -28,6 +35,10 @@
 .button1:pressed{
 	-fx-background-color: #E4EEFD;
 	-fx-background-radius: 20;
+}
+
+.listButtons{
+	-fx-background-color: #B00805;
 }
 
 .label-link:hover{

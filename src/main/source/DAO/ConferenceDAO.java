@@ -4,6 +4,7 @@ import DB.DBConnection;
 import POJO.ConferenceEntity;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,5 +23,18 @@ public class ConferenceDAO {
             session.close();
             return (ConferenceEntity) list.get(0);
         }
+    }
+
+    public static List<ConferenceEntity> getAll(){
+        List<ConferenceEntity> res = new ArrayList<>(0);
+        Session session = DBConnection.getSessionFactory().openSession();
+        String hql = "from POJO.ConferenceEntity";
+        List list = session.createQuery(hql).list();
+        list.forEach(o->{
+            ConferenceEntity temp = (ConferenceEntity)o;
+            res.add(temp);
+        });
+        session.close();
+        return res;
     }
 }

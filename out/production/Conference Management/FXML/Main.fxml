@@ -1,49 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1100.0" stylesheets="@../css/fullpackstyling.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainScreenController">
-   <children>
-      <BorderPane prefHeight="200.0" prefWidth="1380.0">
-         <top>
-            <Pane prefHeight="80.0" style="-fx-background-color: #2A2E37;" BorderPane.alignment="CENTER_LEFT">
-               <children>
-                  <Text layoutX="28.0" layoutY="50.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 30px; -fx-fill: #FFFF8D; -fx-font-weight: bold;" text="HeliosCOMS" />
-                  <TextField fx:id="searchBox" focusTraversable="false" layoutX="777.0" layoutY="27.0" prefHeight="30.0" prefWidth="200.0" promptText="Search" styleClass="search-field" stylesheets="@../css/fullpackstyling.css" />
-                  <ImageView fitHeight="62.0" fitWidth="44.0" layoutX="1015.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/icon_user.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Pane>
-         </top>
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@../css/fullpackstyling.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainScreenController">
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="1100.0">
+            <top>
+                <Pane fx:id="paneToolbar" prefHeight="80.0" style="-fx-background-color: #2A2E37;" BorderPane.alignment="CENTER_LEFT">
+                    <children>
+                        <Text layoutX="25.0" layoutY="55.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 28px; -fx-fill: #FFFF8D; -fx-font-weight: bold;" text="HeliosCOMS" />
+                        <TextField fx:id="searchBox" focusTraversable="false" layoutX="852.0" layoutY="28.0" prefHeight="30.0" prefWidth="240.0" promptText="Search" styleClass="search-field" stylesheets="@../css/fullpackstyling.css" />
+                        <HBox layoutX="13.0" layoutY="8.0">
+                            <children>
+                                <ImageView fx:id="btnExit" fitHeight="12.0" fitWidth="12.0" onMouseClicked="#handleMouseClicked" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../icons/icon_button_close.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="btnMinimize" fitHeight="13.0" fitWidth="13.0" onMouseClicked="#handleMouseClicked" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../icons/icon_button_minimize.png" />
+                                    </image>
+                                    <HBox.margin>
+                                        <Insets left="5.0" />
+                                    </HBox.margin>
+                                </ImageView>
+                            </children>
+                        </HBox>
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Pane>
+            </top>
          <center>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #343843;" BorderPane.alignment="CENTER">
-               <top>
-                  <Pane prefHeight="50.0" prefWidth="1380.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #B2B2B2;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="670.0" prefWidth="205.0" style="-fx-background-color: #343843;">
                      <children>
-                        <Text layoutX="26.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #ffffff; -fx-font-size: 22px; -fx-font-weight: bold;" text="Conferences list: " />
-                        <JFXComboBox fx:id="cbListViewType" focusColor="#aaaaaa" layoutX="202.0" layoutY="13.0" prefHeight="25.0" prefWidth="102.0" styleClass="combo-box" stylesheets="@../css/fullpackstyling.css" unFocusColor="#aaaaaa" />
-                     </children></Pane>
-               </top>
-               <center>
-                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
-               </center>
-            </BorderPane>
+                        <Circle fx:id="ivAvatarRound" fill="#ffffff00" radius="52.0" stroke="WHITE" strokeType="INSIDE" />
+                        <Text fx:id="tfUserDisplayName" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 25px;" text="Helios" textAlignment="CENTER" wrappingWidth="150.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="100.0" fill="#0088ff" startX="-100.0" stroke="#b2b2b2" strokeWidth="5.0" />
+                        <VBox fx:id="containerUserNav" prefHeight="200.0" prefWidth="100.0" />
+                     </children>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding></VBox>
+                   <VBox prefHeight="670.0" prefWidth="900.0">
+                       <fx:include fx:id="listLayout" source="list.fxml" />
+                   </VBox>
+               </children>
+            </HBox>
          </center>
-      </BorderPane>
-   </children>
+        </BorderPane>
+    </children>
 </StackPane>

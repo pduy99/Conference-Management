@@ -21,7 +21,7 @@ public class UserLogin{
      */
     public void getAccount(String username, String password) throws IndexOutOfBoundsException{
         Session session = DBConnection.getSessionFactory().openSession();
-        String hql = "from POJO.UserEntity as u where u.userName = :username and u.password = :password";
+        String hql = "from POJO.UserEntity as u where u.username = :username and u.password = :password";
         List list = session.createQuery(hql)
                 .setParameter("username",username)
                 .setParameter("password",password)

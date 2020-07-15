@@ -18,7 +18,7 @@ public class UsernameValidator extends ValidatorBase {
 
     public UsernameValidator() {
         try {
-            Image icon = new Image(new FileInputStream("icons/icon_error.png"));
+            Image icon = new Image(new FileInputStream("file:icons/icon_error.png"));
             this.setIcon(new ImageView(icon));
         }catch (FileNotFoundException ex){
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,null,ex);
