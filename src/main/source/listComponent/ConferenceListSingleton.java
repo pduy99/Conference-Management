@@ -1,7 +1,6 @@
 package listComponent;
 
 import DAO.ConferenceDAO;
-import DB.DBConnection;
 import POJO.ConferenceEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

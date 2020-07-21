@@ -37,4 +37,9 @@ public class ConferenceDAO {
         session.close();
         return res;
     }
+
+    public static int countEnrollment(int conferenceID){
+        ConferenceEntity conference = ConferenceDAO.findByPk(conferenceID);
+        return conference.getUsers().size();
+    }
 }

@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,9 +16,9 @@
    <children>
       <HBox fx:id="boxLayout" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="850.0">
          <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="120.0">
+            <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                <children>
-                  <ImageView fx:id="cellLogo" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
+                  <ImageView fx:id="cellLogo" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
                </children></VBox>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="118.0" prefWidth="380.0" spacing="5.0">
                <children>
@@ -31,8 +32,11 @@
                   <Text fx:id="tfShortDescription" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #B00805; -fx-font-size: 15px;" text="Short Description here" wrappingWidth="350.0" />
                </children>
                <HBox.margin>
-                  <Insets />
+                  <Insets left="10.0" />
                </HBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="200.0" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
@@ -43,7 +47,7 @@
                               <Image url="@../icons/icon_location.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="tfLocation" prefHeight="18.0" prefWidth="187.0" text="Label">
+                        <Label fx:id="tfLocation" prefHeight="18.0" prefWidth="180.0" text="Label" underline="true" wrapText="true">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -53,7 +57,7 @@
                         </Label>
                      </children>
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="200.0">
@@ -101,21 +105,29 @@
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </VBox>
-            <HBox alignment="BOTTOM_RIGHT">
+            <VBox alignment="BOTTOM_CENTER" prefWidth="130.0">
                <children>
+                  <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                     <children>
+                        <ImageView fx:id="ivStatus" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
                   <JFXButton fx:id="btnEnroll" alignment="CENTER" prefHeight="25.0" prefWidth="130.0" style="-fx-cursor: hand; -fx-background-color: #B00805;" styleClass="listButtons" stylesheets="@../css/fullpackstyling.css" text="Enroll me" textFill="#f2f7f9">
                      <font>
                         <Font name="Baghdad Regular" size="14.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXButton>
                </children>
-            </HBox>
+            </VBox>
          </children>
          <padding>
-            <Insets bottom="5.0" left="5.0" top="5.0" />
+            <Insets bottom="5.0" top="5.0" />
          </padding>
       </HBox>
    </children>

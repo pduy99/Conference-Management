@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="authentification.AuthenticationController">
    <children>
       <AnchorPane fx:id="rootAnchorPane" prefHeight="420.0" prefWidth="800.0" stylesheets="@../css/fullpackstyling.css">
@@ -96,7 +95,7 @@
                                           <Font name="Ebrima Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="lbGuestSignIn" layoutX="113.0" layoutY="385.0" onMouseClicked="#handleMouseClicked" styleClass="label-link" stylesheets="@../css/fullpackstyling.css" text="Continue as a guest" textFill="#1100ff">
+                                    <Label fx:id="lbGuestSignIn" layoutX="113.0" layoutY="385.0" onMouseClicked="#handleGuestLogin" styleClass="label-link" stylesheets="@../css/fullpackstyling.css" text="Continue as a guest" textFill="#1100ff">
                                        <font>
                                           <Font size="15.0" />
                                        </font>

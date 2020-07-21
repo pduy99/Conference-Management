@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,12 +17,9 @@ public class StrongPasswordValidator extends ValidatorBase {
 
     public StrongPasswordValidator(String message){super(message);}
     public StrongPasswordValidator(){
-        try {
-            Image icon = new Image(new FileInputStream("file:icons/icon_error.png"));
-            this.setIcon(new ImageView(icon));
-        }catch (FileNotFoundException ex){
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,null,ex);
-        }
+        InputStream imageURL = getClass().getResourceAsStream("/icons/icon_error.png");
+        Image icon = new Image(imageURL);
+        this.setIcon(new ImageView(icon));
         this.setMessage("Password is not strong enough");
     }
 

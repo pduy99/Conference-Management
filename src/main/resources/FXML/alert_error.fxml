@@ -13,7 +13,7 @@
             <Image url="@../icons/icon_alertError.png" />
          </image>
       </ImageView>
-      <Text fx:id="tfHeader" layoutX="46.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="This is the header of alert" />
+      <Text fx:id="tfHeader" layoutX="46.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-fill: #DD3630;" text="This is the header of alert" />
       <Text fx:id="tfContent" layoutX="17.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15px;" text="This is the content of alert" />
       <JFXButton fx:id="btnConfirm" layoutX="314.0" layoutY="72.0" prefHeight="20.0" prefWidth="72.0" styleClass="dialog-button" stylesheets="@../css/fullpackstyling.css" text="OKAY" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="14.0" />
    </children>

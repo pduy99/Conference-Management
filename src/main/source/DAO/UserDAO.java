@@ -5,7 +5,6 @@ import POJO.ConferenceEntity;
 import POJO.UserEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
@@ -71,13 +70,34 @@ public class UserDAO {
         }
     }
 
-    public static void EnrollConference(int userID, int conference_id) throws NullPointerException, HibernateException {
+    public static void EnrollConference(int userID, int conferenceID) throws NullPointerException, HibernateException {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         UserEntity user = UserDAO.findByPk(userID);
-        ConferenceEntity conference = ConferenceDAO.findByPk(conference_id);
+        ConferenceEntity conference = ConferenceDAO.findByPk(conferenceID);
         user.getConferences().add(conference);
         session.saveOrUpdate(user);
         transaction.commit();
+    }
+
+    public static void DisEnrollConference(int userID, int conferenceID) throws NullPointerException, HibernateException{
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        UserEntity user = UserDAO.findByPk(userID);
+        ConferenceEntity conference = ConferenceDAO.findByPk(conferenceID);
+        user.getConferences().remove(conference);
+        session.saveOrUpdate(user);
+        transaction.commit();
+    }
+
+    public static boolean checkApprovedEnrollment(int userID, int conferenceID){
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        String hql = "select uc.approved from POJO.UserConferenceEntity uc where uc.userId = :userID and uc.conferenceId = :conferenceID";
+        Object res = session.createQuery(hql)
+                .setParameter("userID",userID)
+                .setParameter("conferenceID",conferenceID)
+                .uniqueResult();
+        return ((byte)res == 1);
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #343843;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: #B2B2B2; -fx-border-width: 0 0 0 8px;">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="My Profile">
+                    <HBox.margin>
+                        <Insets left="15.0" />
+                    </HBox.margin>
+                </Text>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <VBox.margin>
+                <Insets bottom="10.0" />
+            </VBox.margin></HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: #B2B2B2; -fx-border-width: 0 0 0 8px;">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="List Conferences">
+                    <HBox.margin>
+                        <Insets left="15.0" />
+                    </HBox.margin>
+                </Text>
+            </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+        </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="60.0" prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: #B2B2B2; -fx-border-width: 0 0 0 8px;">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="Log out">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+    </children>
+</VBox>

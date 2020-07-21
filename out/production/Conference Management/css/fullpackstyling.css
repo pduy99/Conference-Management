@@ -70,7 +70,7 @@
 	-fx-background-color:  #343843;
 	-fx-font-size:  15px;
 	-fx-font-weight:  bold;
-	-fx-background-image: url('/resources/icons/icon_search.png');
+	-fx-background-image: url('/icons/icon_search.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: right center;
 	-fx-background-size: 20px;

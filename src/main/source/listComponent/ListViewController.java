@@ -3,7 +3,6 @@ package listComponent;
 import POJO.ConferenceEntity;
 import POJO.UserEntity;
 import authentification.loginProcess.CurrentAccountSingleton;
-import handlers.Convenience;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -17,7 +16,7 @@ import java.util.ResourceBundle;
  * @created on 7/14/2020
  * @author: Helios - 1712018
  */
-public class ListController implements Initializable {
+public class ListViewController implements Initializable {
 
     @FXML
     private VBox listLayout;
@@ -29,7 +28,7 @@ public class ListController implements Initializable {
     private ConferenceEntity selectedConference;
     private UserEntity account;
 
-    public ListController(){
+    public ListViewController(){
         try{
             ConferenceListSingleton conferenceListSingleton = ConferenceListSingleton.getInstance();
             conferencesObservableList = conferenceListSingleton.getConferenceObservableList();
