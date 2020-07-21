@@ -62,7 +62,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "role", nullable = false)
+    @Column(name = "role", nullable = false, columnDefinition = "1")
     public int getRole() {
         return role;
     }
@@ -134,6 +134,7 @@ public class UserEntity {
         this.username = username;
         this.password = password;
         this.email = mail;
+        this.role = 1;
     }
     public UserEntity(){}
 
