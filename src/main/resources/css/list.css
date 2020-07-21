@@ -43,7 +43,7 @@
 /*.scroll-bar:horizontal .thumb,*/
 .scroll-bar:vertical .thumb {
     /*-fx-background-color :derive(black,90.0%);*/
-    -fx-background-color: #0084AD;
+    -fx-background-color: #343843;
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
     -fx-opacity: 0.5;
