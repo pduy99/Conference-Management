@@ -9,28 +9,26 @@ import DAO.UserDAO;
 import Utils.CustomValidator.EmailValidator;
 import Utils.CustomValidator.StrongPasswordValidator;
 import Utils.CustomValidator.UsernameValidator;
+import Utils.MD5;
+import alertsDialog.CustomAlert;
 import alertsDialog.CustomAlertType;
 import animatefx.animation.ZoomIn;
-import authentification.loginProcess.UserLogin;
+import authentification.loginProcess.Login;
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.events.JFXDialogEvent;
 import com.jfoenix.validation.RequiredFieldValidator;
 import handlers.Convenience;
 import handlers.InternetHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import net.bytebuddy.matcher.CollectionOneToOneMatcher;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -126,9 +124,9 @@ public class AuthenticationController implements Initializable {
         String username = tfUserName.getText().trim();
         String password = tfPassword.getText().trim();
         if(tfUserName.validate() && tfPassword.validate()) {
-            UserLogin userLogin = new UserLogin();
+            Login login = new Login();
             try {
-                userLogin.getAccount(username, password);
+                login.getAccount(username, password);
                 System.out.println("Login successfully");
                 //Sign in successfully
                 Convenience.switchScene(event,getClass().getResource("/FXML/Main.fxml"));
@@ -157,19 +155,31 @@ public class AuthenticationController implements Initializable {
             String username = tfRegisterUsername.getText().trim();
             String mail = tfRegisterEmail.getText().trim();
             String password = tfRegisterPassword.getText().trim();
+            String hashPassword = MD5.getMD5(password);
 
             //Check whether username already exists
             if (UserDAO.findByUserName(username) != null) {
                 Convenience.showAlert(rootPane,rootBorderPane,CustomAlertType.ERROR,"Username already existed","Please choose another username");
             } else {
-                if (UserDAO.addUser(displayName, username, password, mail) == 0) {
+                if (UserDAO.addUser(displayName, username, hashPassword, mail) == 0) {
                     //Register successfully
-
+                    Convenience.showAlert(rootPane,rootBorderPane, CustomAlertType.SUCCESS,"Congratulations","You are successfully registered. Thank you!");
                 } else {
                     //Something went wrong
                     Convenience.showAlert(rootPane,rootBorderPane,CustomAlertType.ERROR,"Sorry, something went wrong","Please try again later");
                 }
             }
+        }
+    }
+
+    @FXML
+    private void handleGuestLogin(MouseEvent event){
+        Login login = new Login();
+        login.loginAsGuest();
+        try{
+            Convenience.switchScene(event,getClass().getResource("/FXML/Main.fxml"));
+        }catch (Exception e){
+            Convenience.showAlert(rootPane,rootBorderPane,CustomAlertType.ERROR,"Login Error","Something went wrong, please try again later");
         }
     }
 
