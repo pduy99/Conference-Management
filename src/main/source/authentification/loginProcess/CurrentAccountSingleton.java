@@ -3,7 +3,9 @@ package authentification.loginProcess;
 import POJO.UserEntity;
 
 /**
- * Singleton class that holds the instance of the current account logged into system
+ * Singleton class that holds the instance of the current account logged into system.
+ * Warning: This is only use to get the user's id because it doesn't update data from database such as
+ * list of conference,...
  * @created om 7/10/2020
  * @author: Helios - 1712018
  */
@@ -45,5 +47,9 @@ public class CurrentAccountSingleton {
 
     public int getRole(){
         return user.getRole();
+    }
+
+    public int getID(){
+        return this.user.getId();
     }
 }

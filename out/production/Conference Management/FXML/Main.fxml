@@ -77,7 +77,8 @@
                            <JFXComboBox fx:id="cbViewStyle" focusColor="#2947a2" layoutX="718.0" layoutY="11.0" prefWidth="150.0" styleClass="label" stylesheets="@../css/fullpackstyling.css" unFocusColor="BLACK" />
                         </children>
                      </Pane>
-                       <fx:include fx:id="listLayout" source="list.fxml" />
+                       <fx:include fx:id="listviewLayout" source="list.fxml" />
+                       <fx:include fx:id="tableviewLayout" source="tableview_conferences.fxml"/>
                    </VBox>
                </children>
             </HBox>

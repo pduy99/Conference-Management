@@ -3,6 +3,8 @@ package Controllers;
 import POJO.UserEntity;
 import authentification.loginProcess.CurrentAccountSingleton;
 import com.jfoenix.controls.JFXComboBox;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -21,8 +23,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
-
-
 
     @FXML
     StackPane rootPane;
@@ -48,7 +48,13 @@ public class MainScreenController implements Initializable {
    @FXML
     Text tfUserDisplayName;
 
-   @FXML
+    @FXML
+    VBox listviewLayout;
+
+    @FXML
+    VBox tableviewLayout;
+
+    @FXML
    VBox guestFunctionNav;
 
    @FXML
@@ -78,6 +84,7 @@ public class MainScreenController implements Initializable {
         setupCombobox();
         setLogin();
         setupUserFunctionNav();
+        setupViewStyle();
     }
 
     private void setLogin(){
@@ -128,6 +135,30 @@ public class MainScreenController implements Initializable {
             stage.setX(event.getScreenX() - xOffset);
             stage.setY(event.getScreenY() - yOffset);
         });
+    }
+
+    private void setupViewStyle(){
+        tableviewLayout.managedProperty().bind(tableviewLayout.visibleProperty());
+        listviewLayout.managedProperty().bind(listviewLayout.visibleProperty());
+
+        //Default list view appears when main screen launch
+        tableviewLayout.setVisible(false);
+        listviewLayout.setVisible(true);
+
+        cbViewStyle.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Label>() {
+            @Override
+            public void changed(ObservableValue<? extends Label> observableValue, Label label, Label t1) {
+                if(t1.getText().equals("Card view")){
+                    listviewLayout.setVisible(true);
+                    tableviewLayout.setVisible(false);
+                }
+                if(t1.getText().equals("Table view")){
+                    tableviewLayout.setVisible(true);
+                    listviewLayout.setVisible(false);
+                }
+            }
+        });
+
     }
 
     private Stage getStage(){

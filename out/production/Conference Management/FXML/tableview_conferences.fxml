@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tableviewComponent.TableViewController">
+   <children>
+      <TableView fx:id="tableview" prefHeight="652.0" prefWidth="900.0" stylesheets="@../css/tableview_style.css">
+        <columns>
+          <TableColumn fx:id="colName" editable="false" prefWidth="250.0" text="Name" />
+            <TableColumn fx:id="colShortDescription" editable="false" prefWidth="400.0" text="Short Description" />
+            <TableColumn fx:id="colTime" editable="false" minWidth="0.0" prefWidth="250.0" text="Time" />
+            <TableColumn fx:id="colLocation" editable="false" prefWidth="300.0" text="Location" />
+            <TableColumn fx:id="colTicket" editable="false" prefWidth="250.0" text="Ticket" />
+            <TableColumn fx:id="colEnrollButton" editable="false" prefWidth="200.0" text="Enroll" />
+            <TableColumn fx:id="colStatus" editable="false" prefWidth="250.0" text="Status" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

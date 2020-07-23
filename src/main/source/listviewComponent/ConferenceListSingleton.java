@@ -1,4 +1,4 @@
-package listComponent;
+package listviewComponent;
 
 import DAO.ConferenceDAO;
 import POJO.ConferenceEntity;
@@ -43,10 +43,13 @@ public class ConferenceListSingleton {
 
     public void setConferenceObservableList(ObservableList<ConferenceEntity> observableList){
         conferenceObservableList = observableList;
+
     }
 
     public void refresh(){
-        //refresh
+        List<ConferenceEntity> tempList = ConferenceDAO.getAll();
+        conferenceObservableList.clear();
+        conferenceObservableList.addAll(tempList);
     }
 
     public void setConferenceListView(ListView<ConferenceEntity> listView){

@@ -1,4 +1,4 @@
-package listComponent;
+package listviewComponent;
 
 import POJO.ConferenceEntity;
 import POJO.UserEntity;

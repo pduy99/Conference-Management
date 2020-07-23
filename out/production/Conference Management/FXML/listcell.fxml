@@ -29,7 +29,7 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></Label>
-                  <Text fx:id="tfShortDescription" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #B00805; -fx-font-size: 18px;" text="Short Description here" wrappingWidth="350.0" />
+                  <Text fx:id="tfShortDescription" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #B00805; -fx-font-size: 15px;" text="Short Description here" wrappingWidth="350.0" />
                </children>
                <HBox.margin>
                   <Insets left="10.0" />

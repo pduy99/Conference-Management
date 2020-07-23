@@ -1,4 +1,4 @@
-package listComponent;
+package listviewComponent;
 
 import DAO.ConferenceDAO;
 import DAO.UserDAO;
@@ -56,12 +56,11 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
 
     private FXMLLoader loader;
     private int conferenceID;
-    private UserEntity account;
+    private int currentAccountID;
     private ConferenceEntity currentConference;
     private String imageULR;
     private Image image;
     private LocationEntity location;
-    private boolean isEnrolled;
 
     @Override
     protected synchronized void updateItem(ConferenceEntity conference, boolean empty){
@@ -82,7 +81,6 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
             currentConference = conference;
             location = conference.getLocation();
             conferenceID = conference.getId();
-            isEnrolled = checkIfHaveEnrolled();
             try{
                 setTicketText();
                 setStyleEnrollButton(checkIfHaveEnrolled());
@@ -110,9 +108,8 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
     }
 
     protected boolean checkIfHaveEnrolled(){
-        if(account == null){
-            account = CurrentAccountSingleton.getInstance().getAccount();
-        }
+        currentAccountID = CurrentAccountSingleton.getInstance().getID();
+        UserEntity account = UserDAO.findByPk(currentAccountID);
         return account.getConferences().contains(currentConference);
     }
 
@@ -149,23 +146,22 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
 
     private void handleEnrollButton(){
         btnEnroll.setOnMouseClicked((MouseEvent event)->{
-            if(isEnrolled){
-                UserDAO.DisEnrollConference(account.getId(), conferenceID);
+            if(checkIfHaveEnrolled()){
+                UserDAO.DisEnrollConference(currentAccountID, conferenceID);
             }
             else{
-                UserDAO.EnrollConference(account.getId(),conferenceID);
+                UserDAO.EnrollConference(currentAccountID,conferenceID);
             }
-            isEnrolled = !isEnrolled;
-            setStyleEnrollButton(isEnrolled);
+            setStyleEnrollButton(checkIfHaveEnrolled());
             setStatusImage();
             setTicketText();
         });
     }
 
     private void setStatusImage(){
-        if(isEnrolled){
+        if(checkIfHaveEnrolled()){
             ivStatus.setVisible(true);
-            if(!UserDAO.checkApprovedEnrollment(account.getId(),conferenceID)){
+            if(!UserDAO.checkApprovedEnrollment(currentAccountID,conferenceID)){
                 InputStream imageURL = getClass().getResourceAsStream("/img/pending_stamp.png");
                 image = new Image(imageURL);
                 ivStatus.setImage(image);
