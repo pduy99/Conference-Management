@@ -122,12 +122,11 @@ public class AuthenticationController implements Initializable {
     @FXML
     void handleSignInButton(ActionEvent event) throws Exception{
         String username = tfUserName.getText().trim();
-        String password = tfPassword.getText().trim();
+        String password = MD5.getMD5(tfPassword.getText());
         if(tfUserName.validate() && tfPassword.validate()) {
             Login login = new Login();
             try {
                 login.getAccount(username, password);
-                System.out.println("Login successfully");
                 //Sign in successfully
                 Convenience.switchScene(event,getClass().getResource("/FXML/Main.fxml"));
 

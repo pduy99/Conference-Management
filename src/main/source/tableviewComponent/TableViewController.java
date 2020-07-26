@@ -2,24 +2,28 @@ package tableviewComponent;
 
 import DAO.ConferenceDAO;
 import DAO.UserDAO;
+import MainScreen.MainPane;
 import POJO.ConferenceEntity;
 import POJO.UserEntity;
+import alertsDialog.CustomAlertType;
 import authentification.loginProcess.CurrentAccountSingleton;
+import handlers.Convenience;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import listviewComponent.ConferenceListSingleton;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 /**
  * @created on 7/22/2020
@@ -51,16 +55,13 @@ public class TableViewController implements Initializable {
     @FXML
     private TableColumn<ConferenceEntity, String> colStatus;
 
-    private ObservableList<ConferenceEntity> conferencesObservableList;
-    private static UserEntity account;
+    private UserEntity currentAccount;
     private int currentAccountID;
 
     public TableViewController(){
         try{
-            ConferenceListSingleton conferenceListSingleton = ConferenceListSingleton.getInstance();
-            conferencesObservableList = conferenceListSingleton.getConferenceObservableList();
-            account = CurrentAccountSingleton.getInstance().getAccount();
-            currentAccountID = account.getId();
+            currentAccount = CurrentAccountSingleton.getInstance().getAccount();
+            currentAccountID = currentAccount.getId();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -90,11 +91,10 @@ public class TableViewController implements Initializable {
         });
         colStatus.setCellValueFactory(param->{
             String res;
-            boolean isEnrolled = Objects.requireNonNull(UserDAO.findByPk(currentAccountID)).getConferences().contains(param.getValue());
-            if(!isEnrolled){
+            if(!checkIfHaveEnrolled(currentAccountID,param.getValue().getId())){
                 res = "";
             }else{
-                if(UserDAO.checkApprovedEnrollment(account.getId(),param.getValue().getId())){
+                if(UserDAO.checkApprovedEnrollment(currentAccountID,param.getValue().getId())){
                     res = "Approved";
                 }
                 else{
@@ -105,16 +105,8 @@ public class TableViewController implements Initializable {
         });
 
         colEnrollButton.setCellValueFactory(new EnrollButtonCellValueFactory());
-        tableview.setItems(conferencesObservableList);
+        tableview.setItems(ConferenceListSingleton.getInstance().getFilteredList());
         tableview.setPlaceholder(new Label("No conferences to display"));
-    }
-
-    private void update(){
-        conferencesObservableList.clear();
-        ConferenceListSingleton conferenceListSingleton = ConferenceListSingleton.getInstance();
-        conferenceListSingleton.refresh();
-        conferencesObservableList = conferenceListSingleton.getConferenceObservableList();
-        tableview.setItems(conferencesObservableList);
     }
 
     public class EnrollButtonCellValueFactory implements Callback<TableColumn.CellDataFeatures<ConferenceEntity,Button>,ObservableValue<Button>>{
@@ -122,23 +114,39 @@ public class TableViewController implements Initializable {
         @Override
         public ObservableValue<Button> call(TableColumn.CellDataFeatures<ConferenceEntity, Button> param) {
             Button enrollButton = new Button();
-            ConferenceEntity conference = param.getValue();
-            UserEntity user = UserDAO.findByPk(currentAccountID);
-            if(user.getConferences().contains(conference)) {
+            if(checkIfHaveEnrolled(currentAccountID,param.getValue().getId())) {
                 enrollButton.setText("Disenroll me");
                 enrollButton.setOnMouseClicked((MouseEvent event)->{
-                    UserDAO.DisEnrollConference(currentAccountID,conference.getId());
-                    update();
+                    UserDAO.DisEnrollConference(currentAccountID,param.getValue().getId());
+                    //update();
+                    ConferenceListSingleton.getInstance().refresh();
                 });
             }
             else{
                 enrollButton.setText("Enroll me");
                 enrollButton.setOnMouseClicked((MouseEvent event)->{
-                    UserDAO.EnrollConference(currentAccountID,conference.getId());
-                    update();
+                    if(currentAccount.getRole() == 0){
+                        StackPane rootStackPane = MainPane.getInstance().getStackPane();
+                        BorderPane nodeToBlur = MainPane.getInstance().getBorderPane();
+                        Convenience.showAlert(rootStackPane,nodeToBlur,CustomAlertType.WARNING,"Sign in to continue","To enroll conferences, you must be signed in.");
+                    }else{
+                        UserDAO.EnrollConference(currentAccountID,param.getValue().getId());
+                        //update();
+                        ConferenceListSingleton.getInstance().refresh();
+                    }
                 });
             }
             return new SimpleObjectProperty<>(enrollButton);
         }
+    }
+
+    private boolean checkIfHaveEnrolled(int userID, int conferenceID){
+        ConferenceEntity conference = ConferenceDAO.findByPk(conferenceID);
+        UserEntity account = UserDAO.findByPk(userID);
+        if(account==null){
+            //Guest login
+            return false;
+        }
+        return account.getConferences().contains(conference);
     }
 }

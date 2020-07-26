@@ -21,12 +21,11 @@ public class Login {
      * @throws IndexOutOfBoundsException when credentials invalid
      */
     public void getAccount(String username, String password) throws IndexOutOfBoundsException{
-        String hashPassword = MD5.getMD5(password);
         Session session = DBConnection.getSessionFactory().openSession();
         String hql = "from POJO.UserEntity as u where u.username = :username and u.password = :password";
         List list = session.createQuery(hql)
                 .setParameter("username",username)
-                .setParameter("password",hashPassword)
+                .setParameter("password",password)
                 .list();
         session.close();
 

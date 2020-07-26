@@ -2,20 +2,25 @@ package listviewComponent;
 
 import DAO.ConferenceDAO;
 import DAO.UserDAO;
+import MainScreen.MainPane;
 import POJO.ConferenceEntity;
 import POJO.LocationEntity;
 import POJO.UserEntity;
+import alertsDialog.CustomAlertType;
 import authentification.loginProcess.CurrentAccountSingleton;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListCell;
+import handlers.Convenience;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.fxml.FXML;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import java.io.InputStream;
@@ -69,7 +74,6 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
         if(empty || conference == null){
             setText(null);
             setGraphic(null);
-            //account = CurrentAccountSingleton.getInstance().getAccount();
         }else{
             try{
                 if(loader == null) {
@@ -77,7 +81,7 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
                     loader.setController(this);
                 }
                 loader.load();
-            }catch (Exception e){ }
+            }catch (Exception ignored){ }
             currentConference = conference;
             location = conference.getLocation();
             conferenceID = conference.getId();
@@ -110,6 +114,10 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
     protected boolean checkIfHaveEnrolled(){
         currentAccountID = CurrentAccountSingleton.getInstance().getID();
         UserEntity account = UserDAO.findByPk(currentAccountID);
+        if(account==null){
+            //Guest login
+            return false;
+        }
         return account.getConferences().contains(currentConference);
     }
 
@@ -136,12 +144,8 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
     }
 
     private void setEffectLocationLabel(){
-        tfLocation.setOnMouseEntered((MouseEvent event)->{
-            tfLocation.setText(location.getAddress());
-        });
-        tfLocation.setOnMouseExited((MouseEvent event)->{
-            tfLocation.setText(location.getName());
-        });
+        tfLocation.setOnMouseEntered((MouseEvent event)-> tfLocation.setText(location.getAddress()));
+        tfLocation.setOnMouseExited((MouseEvent event)-> tfLocation.setText(location.getName()));
     }
 
     private void handleEnrollButton(){
@@ -150,7 +154,15 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
                 UserDAO.DisEnrollConference(currentAccountID, conferenceID);
             }
             else{
-                UserDAO.EnrollConference(currentAccountID,conferenceID);
+                if(CurrentAccountSingleton.getInstance().getRole() ==0){
+                    //Guest
+                    StackPane rootStackPane = MainPane.getInstance().getStackPane();
+                    BorderPane nodeToBlur = MainPane.getInstance().getBorderPane();
+                    Convenience.showAlert(rootStackPane,nodeToBlur, CustomAlertType.WARNING,"Sign in to continue","To enroll conferences, you must be signed in.");
+                }
+                else{
+                    UserDAO.EnrollConference(currentAccountID,conferenceID);
+                }
             }
             setStyleEnrollButton(checkIfHaveEnrolled());
             setStatusImage();

@@ -1,5 +1,8 @@
 package POJO;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -137,5 +140,4 @@ public class UserEntity {
         this.role = 1;
     }
     public UserEntity(){}
-
 }

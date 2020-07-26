@@ -1,8 +1,12 @@
-package Controllers;
+package MainScreen;
 
+import POJO.ConferenceEntity;
 import POJO.UserEntity;
 import authentification.loginProcess.CurrentAccountSingleton;
 import com.jfoenix.controls.JFXComboBox;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -12,20 +16,27 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import listviewComponent.ConferenceListSingleton;
+import org.hibernate.cache.cfg.spi.DomainDataRegionBuildingContext;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class MainScreenController implements Initializable {
 
     @FXML
     StackPane rootPane;
+
+    @FXML
+    BorderPane borderPane;
 
     @FXML
     Pane paneToolbar;
@@ -54,19 +65,15 @@ public class MainScreenController implements Initializable {
     @FXML
     VBox tableviewLayout;
 
-    @FXML
-   VBox guestFunctionNav;
-
    @FXML
    VBox userFunctionNav;
 
-   @FXML
-   VBox adminFunctionNav;
 
     private Stage stage = null;
     private double xOffset = 0;
     private double yOffset = 0;
     private UserEntity account;
+    private Object SimpleObjectProperty;
 
     @FXML
     public void handleMouseClicked(MouseEvent event){
@@ -80,40 +87,19 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MainPane.getInstance().setStackPane(rootPane);
+        MainPane.getInstance().setBorderPane(borderPane);
+
         makeDraggable(paneToolbar);
         setupCombobox();
         setLogin();
-        setupUserFunctionNav();
         setupViewStyle();
+        handleSearch();
     }
 
     private void setLogin(){
         account = CurrentAccountSingleton.getInstance().getAccount();
-        tfUserDisplayName.setText(account.getDisplayName());
-
-    }
-
-    private void setupUserFunctionNav(){
-        adminFunctionNav.managedProperty().bind(adminFunctionNav.visibleProperty());
-        userFunctionNav.managedProperty().bind(userFunctionNav.visibleProperty());
-        guestFunctionNav.managedProperty().bind(guestFunctionNav.visibleProperty());
-        switch (account.getRole()){
-            case 0: { // Guest
-                userFunctionNav.setVisible(false);
-                adminFunctionNav.setVisible(false);
-                break;
-            }
-            case 1:{ // User
-                guestFunctionNav.setVisible(false);
-                adminFunctionNav.setVisible(false);
-                break;
-            }
-            case 2:{ // Admin
-                guestFunctionNav.setVisible(false);
-                userFunctionNav.setVisible(false);
-                break;
-            }
-        }
+        tfUserDisplayName.textProperty().bind(new SimpleStringProperty(account.getDisplayName()));
     }
 
     private void setupCombobox(){
@@ -158,7 +144,22 @@ public class MainScreenController implements Initializable {
                 }
             }
         });
+    }
 
+    private void handleSearch(){
+        searchBox.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1.equals("")){
+                    ConferenceListSingleton.getInstance().getFilteredList().setPredicate(null);
+                }else {
+                    Predicate<ConferenceEntity> nameContains = i -> i.getName().contains(t1);
+                    Predicate<ConferenceEntity> locationContains = i->i.getLocation().getName().contains(t1);
+                    ConferenceListSingleton.getInstance().getFilteredList().setPredicate(nameContains);
+                    ConferenceListSingleton.getInstance().getFilteredList().setPredicate(locationContains);
+                }
+            }
+        });
     }
 
     private Stage getStage(){

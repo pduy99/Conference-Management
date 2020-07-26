@@ -15,9 +15,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@../css/fullpackstyling.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainScreenController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@../css/fullpackstyling.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainScreen.MainScreenController">
     <children>
-        <BorderPane prefHeight="200.0" prefWidth="1100.0">
+        <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="1100.0">
             <top>
                 <Pane fx:id="paneToolbar" prefHeight="80.0" style="-fx-background-color: #2A2E37;" BorderPane.alignment="CENTER_LEFT">
                     <children>
@@ -62,8 +62,6 @@
                               <Insets bottom="20.0" />
                            </VBox.margin></Line>
                         <VBox>
-                            <fx:include fx:id="adminFunctionNav" source="admin_function_navbar.fxml" />
-                            <fx:include fx:id="guestFunctionNav" source="guest_function_navbar.fxml" />
                             <fx:include fx:id="userFunctionNav" source="user_function_navbar.fxml" />
                         </VBox>
                      </children>
@@ -78,7 +76,7 @@
                         </children>
                      </Pane>
                        <fx:include fx:id="listviewLayout" source="list.fxml" />
-                       <fx:include fx:id="tableviewLayout" source="tableview_conferences.fxml"/>
+                       <fx:include fx:id="tableviewLayout" source="tableview_conferences.fxml" />
                    </VBox>
                </children>
             </HBox>
