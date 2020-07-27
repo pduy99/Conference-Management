@@ -11,7 +11,6 @@ import handlers.Convenience;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
@@ -23,7 +22,6 @@ import javafx.util.Callback;
 import listviewComponent.ConferenceListSingleton;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Stack;
 
 /**
  * @created on 7/22/2020

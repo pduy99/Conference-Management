@@ -1,12 +1,16 @@
 package listviewComponent;
 
 import DAO.ConferenceDAO;
+import DAO.UserDAO;
 import POJO.ConferenceEntity;
+import POJO.UserEntity;
+import authentification.loginProcess.CurrentAccountSingleton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +23,7 @@ public class ConferenceListSingleton {
     private static volatile ObservableList<ConferenceEntity> conferenceObservableList;
     private static ListView<ConferenceEntity> conferenceListView;
     private static FilteredList<ConferenceEntity> filteredList;
+    private int listType = 0; //0: all conference list, 1: my conference list
 
     private ConferenceListSingleton(){
         List<ConferenceEntity> tempList = ConferenceDAO.getAll();
@@ -59,9 +64,29 @@ public class ConferenceListSingleton {
     }
 
     public void refresh(){
+        if(listType == 0)
+        {
+            getAllConference();
+        }
+        if(listType == 1){
+            getMyConferenceList(CurrentAccountSingleton.getInstance().getID());
+        }
+    }
+
+    public void getAllConference(){
         List<ConferenceEntity> tempList = ConferenceDAO.getAll();
         conferenceObservableList.clear();
         conferenceObservableList.addAll(tempList);
+        listType = 0;
+    }
+
+    public void getMyConferenceList(int userID){
+        UserEntity user = UserDAO.findByPk(userID);
+        assert user != null;
+        List<ConferenceEntity> myConferenceList = new ArrayList<>(user.getConferences());
+        conferenceObservableList.clear();
+        conferenceObservableList.addAll(myConferenceList);
+        listType = 1;
     }
 
     public FilteredList<ConferenceEntity> getFilteredList() {

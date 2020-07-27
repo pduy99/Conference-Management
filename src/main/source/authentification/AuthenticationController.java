@@ -106,10 +106,18 @@ public class AuthenticationController implements Initializable {
             paneSignIn.toFront();
         }
         if(event.getSource() == btnExit){
-              System.exit(0);
+            if(Convenience.getDialog() == null){
+                System.exit(0);
+            }
+            else{
+                Convenience.closePreviousDialog();
+            }
+
         }
         if(event.getSource() == btnMinimize){
-            ((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
+            if(Convenience.getDialog() == null){
+                ((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
+            }
         }
 
     }

@@ -4,17 +4,18 @@ import POJO.ConferenceEntity;
 import POJO.UserEntity;
 import authentification.loginProcess.CurrentAccountSingleton;
 import com.jfoenix.controls.JFXComboBox;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -24,7 +25,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import listviewComponent.ConferenceListSingleton;
-import org.hibernate.cache.cfg.spi.DomainDataRegionBuildingContext;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,6 +43,9 @@ public class MainScreenController implements Initializable {
 
    @FXML
    TextField searchBox;
+
+   @FXML
+   Label tfListTitle;
 
    @FXML
    JFXComboBox<Label> cbViewStyle;
@@ -73,7 +76,6 @@ public class MainScreenController implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
     private UserEntity account;
-    private Object SimpleObjectProperty;
 
     @FXML
     public void handleMouseClicked(MouseEvent event){
@@ -89,6 +91,7 @@ public class MainScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MainPane.getInstance().setStackPane(rootPane);
         MainPane.getInstance().setBorderPane(borderPane);
+        MainPane.getInstance().setListTitle(tfListTitle);
 
         makeDraggable(paneToolbar);
         setupCombobox();
@@ -147,16 +150,26 @@ public class MainScreenController implements Initializable {
     }
 
     private void handleSearch(){
+        searchBox.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode().equals(KeyCode.ENTER)){
+                String keyword = searchBox.getText();
+                if(keyword.equals("")){
+                    ConferenceListSingleton.getInstance().getFilteredList().setPredicate(null);
+                }
+                else{
+                    Predicate<ConferenceEntity> searchByKeyWord = item -> item.getName().contains(keyword)
+                            || item.getLocation().getName().contains(keyword)
+                            || item.getShortDescription().contains(keyword);
+                    ConferenceListSingleton.getInstance().getFilteredList().setPredicate(searchByKeyWord);
+                }
+            }
+        });
+
         searchBox.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if(t1.equals("")){
                     ConferenceListSingleton.getInstance().getFilteredList().setPredicate(null);
-                }else {
-                    Predicate<ConferenceEntity> nameContains = i -> i.getName().contains(t1);
-                    Predicate<ConferenceEntity> locationContains = i->i.getLocation().getName().contains(t1);
-                    ConferenceListSingleton.getInstance().getFilteredList().setPredicate(nameContains);
-                    ConferenceListSingleton.getInstance().getFilteredList().setPredicate(locationContains);
                 }
             }
         });

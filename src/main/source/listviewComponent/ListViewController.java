@@ -2,6 +2,7 @@ package listviewComponent;
 
 import POJO.ConferenceEntity;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.fxml.FXML;
@@ -25,6 +26,6 @@ public class ListViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lvConferences.setItems(ConferenceListSingleton.getInstance().getFilteredList());
         lvConferences.setCellFactory(customListViewCell -> new CustomListViewCell());
-        ConferenceListSingleton.getInstance().setConferenceListView(lvConferences);
+        lvConferences.setPlaceholder(new Label("No conferences to display"));
     }
 }

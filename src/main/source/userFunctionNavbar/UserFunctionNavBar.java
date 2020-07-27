@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import listviewComponent.ConferenceListSingleton;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +30,9 @@ public class UserFunctionNavBar implements Initializable {
     private HBox myConferences;
 
     @FXML
+    private HBox allConferences;
+
+    @FXML
     private HBox userManagement;
 
     @FXML
@@ -46,15 +50,19 @@ public class UserFunctionNavBar implements Initializable {
     private UserEntity account;
     private int accountRole;
 
+    private HBox isSelecting;
+
     public UserFunctionNavBar(){
         account = CurrentAccountSingleton.getInstance().getAccount();
         accountRole = account.getRole();
+        isSelecting = allConferences;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         myProfile.managedProperty().bind(myProfile.visibleProperty());
+        allConferences.managedProperty().bind(allConferences.visibleProperty());
         myConferences.managedProperty().bind(myConferences.visibleProperty());
         userManagement.managedProperty().bind(userManagement.visibleProperty());
         conferenceManagement.managedProperty().bind(conferenceManagement.visibleProperty());
@@ -106,7 +114,14 @@ public class UserFunctionNavBar implements Initializable {
 
     @FXML
     void handleMyConferences(MouseEvent event) {
+        ConferenceListSingleton.getInstance().getMyConferenceList(account.getId());
+        MainPane.getInstance().getListTitle().setText("My Conference list");
+    }
 
+    @FXML
+    void handleAllConferences(MouseEvent event){
+        ConferenceListSingleton.getInstance().getAllConference();
+        MainPane.getInstance().getListTitle().setText("Conference list: ");
     }
 
     @FXML

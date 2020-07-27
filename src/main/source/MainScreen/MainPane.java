@@ -1,5 +1,6 @@
 package MainScreen;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -15,7 +16,7 @@ public class MainPane {
 
     private static StackPane rootStackPane;
     private static BorderPane borderPane;
-    private static TextField searchBar;
+    private static Label tfListTitle;
 
     private MainPane(){}
 
@@ -42,11 +43,11 @@ public class MainPane {
         return borderPane;
     }
 
-    public TextField getSearchBar(){
-        return searchBar;
+    public Label getListTitle(){
+        return tfListTitle;
     }
 
-    public void setSearchBar(TextField searchBar) {
-        MainPane.searchBar = searchBar;
+    public void setListTitle(Label searchBar) {
+        MainPane.tfListTitle = searchBar;
     }
 }

@@ -164,9 +164,7 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
                     UserDAO.EnrollConference(currentAccountID,conferenceID);
                 }
             }
-            setStyleEnrollButton(checkIfHaveEnrolled());
-            setStatusImage();
-            setTicketText();
+            ConferenceListSingleton.getInstance().refresh();
         });
     }
 
