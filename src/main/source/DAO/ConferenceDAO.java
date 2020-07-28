@@ -53,4 +53,12 @@ public class ConferenceDAO {
             return 0;
         }
     }
+
+    public static List<String> getListParticipantName(int conferenceID){
+        List<String> listParticipantName = new ArrayList<>();
+        ConferenceEntity conference = findByPk(conferenceID);
+        conference.getUsers().forEach(user -> listParticipantName.add(user.getDisplayName()));
+
+        return listParticipantName;
+    }
 }

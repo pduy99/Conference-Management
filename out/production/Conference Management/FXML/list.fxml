@@ -4,5 +4,5 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="listLayout" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" style="-fx-border-color: #0084AD;" stylesheets="@/css/list.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="listviewComponent.ListViewController">
-    <ListView fx:id="lvConferences" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-border-color: #0084AD; -fx-border-style: solid; -fx-border-image-width: 1;" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="lvConferences" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#cellClick" style="-fx-border-color: #0084AD; -fx-border-style: solid; -fx-border-image-width: 1;" VBox.vgrow="ALWAYS" />
 </VBox>

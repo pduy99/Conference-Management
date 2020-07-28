@@ -71,7 +71,7 @@
                    <VBox prefHeight="670.0" prefWidth="900.0">
                      <Pane prefHeight="45.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
                         <children>
-                           <Label layoutX="14.0" layoutY="8.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Conference list: " />
+                           <Label fx:id="tfListTitle" layoutX="14.0" layoutY="8.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Conference list: " />
                            <JFXComboBox fx:id="cbViewStyle" focusColor="#2947a2" layoutX="718.0" layoutY="11.0" prefWidth="150.0" styleClass="label" stylesheets="@../css/fullpackstyling.css" unFocusColor="BLACK" />
                         </children>
                      </Pane>

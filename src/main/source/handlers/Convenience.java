@@ -122,6 +122,7 @@ public final class Convenience {
     public static void closePreviousDialog(){
         if(previousDialog!=null){
             previousDialog.close();
+            previousDialog = null;
         }
     }
 
