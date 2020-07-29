@@ -69,14 +69,20 @@
                         <Insets top="20.0" />
                      </padding></VBox>
                    <VBox prefHeight="670.0" prefWidth="900.0">
-                     <Pane prefHeight="45.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
-                        <children>
-                           <Label fx:id="tfListTitle" layoutX="14.0" layoutY="8.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Conference list: " />
-                           <JFXComboBox fx:id="cbViewStyle" focusColor="#2947a2" layoutX="718.0" layoutY="11.0" prefWidth="150.0" styleClass="label" stylesheets="@../css/fullpackstyling.css" unFocusColor="BLACK" />
-                        </children>
-                     </Pane>
-                       <fx:include fx:id="listviewLayout" source="list.fxml" />
-                       <fx:include fx:id="tableviewLayout" source="tableview_conferences.fxml" />
+                       <VBox fx:id="listContainer">
+                           <Pane prefHeight="45.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+                               <Label fx:id="tfListTitle" layoutX="14.0" layoutY="8.0"
+                                      style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Conference list: "/>
+                               <JFXComboBox fx:id="cbViewStyle" focusColor="#2947a2" layoutX="718.0" layoutY="11.0"
+                                            prefWidth="150.0" styleClass="label"
+                                            stylesheets="@../css/fullpackstyling.css" unFocusColor="BLACK"/>
+                           </Pane>
+                           <fx:include fx:id="listviewLayout" source="list.fxml"/>
+                           <fx:include fx:id="tableviewLayout" source="tableview_conferences.fxml"/>
+                       </VBox>
+                       <VBox fx:id="profileContainer">
+                           <fx:include source="profile.fxml"/>
+                       </VBox>
                    </VBox>
                </children>
             </HBox>

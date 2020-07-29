@@ -44,6 +44,12 @@ public class MainScreenController implements Initializable {
    @FXML
    TextField searchBox;
 
+    @FXML
+    VBox listContainer;
+
+    @FXML
+    VBox profileContainer;
+
    @FXML
    Label tfListTitle;
 
@@ -92,12 +98,17 @@ public class MainScreenController implements Initializable {
         MainPane.getInstance().setStackPane(rootPane);
         MainPane.getInstance().setBorderPane(borderPane);
         MainPane.getInstance().setListTitle(tfListTitle);
+        MainPane.getInstance().setListContainers(listContainer);
+        MainPane.getInstance().setProfileContainer(profileContainer);
 
         makeDraggable(paneToolbar);
         setupCombobox();
         setLogin();
         setupViewStyle();
         handleSearch();
+
+        profileContainer.setManaged(false);
+        profileContainer.setVisible(false);
     }
 
     private void setLogin(){

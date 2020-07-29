@@ -89,7 +89,7 @@ public class UserFunctionNavBar implements Initializable {
                 signIn.setVisible(false);
                 break;
             }
-            case 3: //Admin
+            case 2: //Admin
             {
                 signIn.setVisible(false);
                 break;
@@ -114,19 +114,21 @@ public class UserFunctionNavBar implements Initializable {
 
     @FXML
     void handleMyConferences(MouseEvent event) {
+        MainPane.getInstance().showListContainer();
         ConferenceListSingleton.getInstance().getMyConferenceList(account.getId());
         MainPane.getInstance().getListTitle().setText("My Conference list");
     }
 
     @FXML
     void handleAllConferences(MouseEvent event){
+        MainPane.getInstance().showListContainer();
         ConferenceListSingleton.getInstance().getAllConference();
         MainPane.getInstance().getListTitle().setText("Conference list: ");
     }
 
     @FXML
     void handleMyProfile(MouseEvent event) {
-
+        MainPane.getInstance().showProfileContainer();
     }
 
     @FXML
