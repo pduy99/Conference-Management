@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -23,6 +24,25 @@ public class UserEntity {
     private String email;
     private Byte blocked;
     private Set<ConferenceEntity> conferences = new HashSet<ConferenceEntity>(0);
+    private String address;
+    private Timestamp birthday;
+    private Timestamp createDate;
+
+    //Custom Constructor
+    public UserEntity(String name, int role){
+        this.displayName = name;
+        this.role = role;
+    }
+
+    public UserEntity(String displayName, String username, String password, String mail){
+        this.displayName = displayName;
+        this.username = username;
+        this.password = password;
+        this.email = mail;
+        this.role = 1;
+    }
+
+    public UserEntity(){}
 
     @Id
     @Column(name = "id", nullable = false)
@@ -125,19 +145,33 @@ public class UserEntity {
         return Objects.hash(id, displayName, username, password, role, email, blocked);
     }
 
-
-    //Custom Constructor
-    public UserEntity(String name, int role){
-        this.displayName = name;
-        this.role = role;
+    @Basic
+    @Column(name = "address", nullable = true, length = 200)
+    public String getAddress() {
+        return address;
     }
 
-    public UserEntity(String displayName, String username, String password, String mail){
-        this.displayName = displayName;
-        this.username = username;
-        this.password = password;
-        this.email = mail;
-        this.role = 1;
+    public void setAddress(String address) {
+        this.address = address;
     }
-    public UserEntity(){}
+
+    @Basic
+    @Column(name = "birthday", nullable = true)
+    public Timestamp getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Timestamp birthday) {
+        this.birthday = birthday;
+    }
+
+    @Basic
+    @Column(name = "create_date", nullable = true)
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
+    }
 }
