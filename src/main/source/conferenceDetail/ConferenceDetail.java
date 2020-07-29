@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXButton;
 import handlers.Convenience;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,7 +24,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 import listviewComponent.ConferenceListSingleton;
 
 import java.io.InputStream;
@@ -167,6 +165,7 @@ public class ConferenceDetail implements Initializable {
             }
             ConferenceListSingleton.getInstance().refresh();
             setStyleEnrollButton(checkIfHaveEnrolled());
+            setupParticipantTableView();
         });
     }
 }
