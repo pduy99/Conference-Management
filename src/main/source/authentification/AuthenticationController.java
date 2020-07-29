@@ -19,11 +19,15 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import handlers.Convenience;
 import handlers.InternetHandler;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -136,7 +140,7 @@ public class AuthenticationController implements Initializable {
             try {
                 login.getAccount(username, password);
                 //Sign in successfully
-                Convenience.switchScene(event,getClass().getResource("/FXML/Main.fxml"));
+                Convenience.switchScene(rootAnchorPane,getClass().getResource("/FXML/Main.fxml"));
 
             } catch (Exception ex) {
                 if (!InternetHandler.checkInternetConnection()) {
@@ -228,6 +232,18 @@ public class AuthenticationController implements Initializable {
                 tfUserName.validate();
             }
         }));
+
+        rootAnchorPane.setOnKeyPressed(keyEvent -> {
+            System.out.println("Pressed Enter");
+            if(keyEvent.getCode().equals(KeyCode.ENTER)){
+                if(tfUserName.validate() && tfPassword.validate()){
+                    try {
+                        handleSignInButton(new ActionEvent());
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        });
     }
 
     public boolean validateRegisterForm(){
