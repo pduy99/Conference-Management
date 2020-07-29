@@ -7,7 +7,9 @@ import POJO.ConferenceEntity;
 import POJO.UserEntity;
 import alertsDialog.CustomAlertType;
 import authentification.loginProcess.CurrentAccountSingleton;
+import conferenceDetail.ConferenceDetail;
 import handlers.Convenience;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +22,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import listviewComponent.ConferenceListSingleton;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -105,6 +109,21 @@ public class TableViewController implements Initializable {
         colEnrollButton.setCellValueFactory(new EnrollButtonCellValueFactory());
         tableview.setItems(ConferenceListSingleton.getInstance().getFilteredList());
         tableview.setPlaceholder(new Label("No conferences to display"));
+        tableview.setRowFactory(tv->{
+            TableRow<ConferenceEntity> row = new TableRow<>();
+            row.setOnMouseClicked(event->{
+                if(event.getClickCount() == 2 && (!row.isEmpty())){
+                    try {
+                        ConferenceDetail conferenceDetail = Convenience.popupDialog(MainPane.getInstance().getStackPane(),
+                                MainPane.getInstance().getBorderPane(),getClass().getResource("/FXML/conference_detail.fxml"));
+                        conferenceDetail.setupModel(row.getItem());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
     }
 
     public class EnrollButtonCellValueFactory implements Callback<TableColumn.CellDataFeatures<ConferenceEntity,Button>,ObservableValue<Button>>{
