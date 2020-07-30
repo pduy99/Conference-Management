@@ -122,4 +122,19 @@ public class UserDAO {
             return false;
         }
     }
+
+    public static boolean updateUser(UserEntity user){
+        boolean res = false;
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.saveOrUpdate(user);
+            res = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        transaction.commit();
+        session.close();
+        return res;
+    }
 }

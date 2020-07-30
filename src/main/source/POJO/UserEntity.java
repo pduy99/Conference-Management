@@ -2,9 +2,11 @@ package POJO;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -23,10 +25,10 @@ public class UserEntity {
     private int role;
     private String email;
     private Byte blocked;
-    private Set<ConferenceEntity> conferences = new HashSet<ConferenceEntity>(0);
+    private Set<ConferenceEntity> conferences = new HashSet<>(0);
     private String address;
-    private Timestamp birthday;
-    private Timestamp createDate;
+    private Date birthday;
+    private Date createDate;
 
     //Custom Constructor
     public UserEntity(String name, int role){
@@ -40,6 +42,14 @@ public class UserEntity {
         this.password = password;
         this.email = mail;
         this.role = 1;
+    }
+
+    public UserEntity(String username, String displayName, String email, String address, Date birthday){
+        this.username = username;
+        this.displayName = displayName;
+        this.email = email;
+        this.address = address;
+        this.birthday = birthday;
     }
 
     public UserEntity(){}
@@ -157,21 +167,23 @@ public class UserEntity {
 
     @Basic
     @Column(name = "birthday", nullable = true)
-    public Timestamp getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
     @Basic
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", nullable = true)
-    public Timestamp getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 }
