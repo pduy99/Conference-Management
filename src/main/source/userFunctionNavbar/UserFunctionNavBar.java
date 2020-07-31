@@ -1,6 +1,6 @@
 package userFunctionNavbar;
 
-import MainScreen.MainPane;
+import MainScreen.MainScreenComponentSingleton;
 import POJO.UserEntity;
 import authentification.loginProcess.CurrentAccountSingleton;
 import handlers.Convenience;
@@ -24,6 +24,9 @@ import java.util.ResourceBundle;
 public class UserFunctionNavBar implements Initializable {
 
     @FXML
+    private HBox dashBoard;
+
+    @FXML
     private HBox myProfile;
 
     @FXML
@@ -31,15 +34,6 @@ public class UserFunctionNavBar implements Initializable {
 
     @FXML
     private HBox allConferences;
-
-    @FXML
-    private HBox userManagement;
-
-    @FXML
-    private HBox conferenceManagement;
-
-    @FXML
-    private HBox pendingList;
 
     @FXML
     private HBox signIn;
@@ -64,9 +58,7 @@ public class UserFunctionNavBar implements Initializable {
         myProfile.managedProperty().bind(myProfile.visibleProperty());
         allConferences.managedProperty().bind(allConferences.visibleProperty());
         myConferences.managedProperty().bind(myConferences.visibleProperty());
-        userManagement.managedProperty().bind(userManagement.visibleProperty());
-        conferenceManagement.managedProperty().bind(conferenceManagement.visibleProperty());
-        pendingList.managedProperty().bind(pendingList.visibleProperty());
+        dashBoard.managedProperty().bind(dashBoard.visibleProperty());
         signIn.managedProperty().bind(signIn.visibleProperty());
         logOut.managedProperty().bind(logOut.visibleProperty());
 
@@ -75,17 +67,13 @@ public class UserFunctionNavBar implements Initializable {
             {
                 myProfile.setVisible(false);
                 myConferences.setVisible(false);
-                userManagement.setVisible(false);
-                conferenceManagement.setVisible(false);
-                pendingList.setVisible(false);
+                dashBoard.setVisible(false);
                 logOut.setVisible(false);
                 break;
             }
             case 1: //User
             {
-                userManagement.setVisible(false);
-                conferenceManagement.setVisible(false);
-                pendingList.setVisible(false);
+                dashBoard.setVisible(false);
                 signIn.setVisible(false);
                 break;
             }
@@ -95,11 +83,6 @@ public class UserFunctionNavBar implements Initializable {
                 break;
             }
         }
-    }
-
-    @FXML
-    void handleConferenceManagement(MouseEvent event) {
-
     }
 
     @FXML
@@ -114,32 +97,36 @@ public class UserFunctionNavBar implements Initializable {
 
     @FXML
     void handleMyConferences(MouseEvent event) {
-        MainPane.getInstance().showListContainer();
+        MainScreenComponentSingleton.getInstance().showListContainer();
         ConferenceListSingleton.getInstance().getMyConferenceList(account.getId());
-        MainPane.getInstance().getListTitle().setText("My Conference list");
+        MainScreenComponentSingleton.getInstance().getListTitle().setText("My Conference list");
     }
 
     @FXML
     void handleAllConferences(MouseEvent event){
-        MainPane.getInstance().showListContainer();
+        MainScreenComponentSingleton.getInstance().showListContainer();
         ConferenceListSingleton.getInstance().getAllConference();
-        MainPane.getInstance().getListTitle().setText("Conference list: ");
+        MainScreenComponentSingleton.getInstance().getListTitle().setText("Conference list: ");
     }
 
     @FXML
     void handleMyProfile(MouseEvent event) {
-        MainPane.getInstance().showProfileContainer();
+        MainScreenComponentSingleton.getInstance().showProfileContainer();
     }
 
     @FXML
-    void handlePendingList(MouseEvent event) {
-
+    void handleDashBoard(MouseEvent event) {
+        try {
+            Convenience.switchScene(event,getClass().getResource("/FXML/Dashboard.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void handleSignIn(MouseEvent event) {
-        StackPane rootStackPane = MainPane.getInstance().getStackPane();
-        BorderPane borderPane = MainPane.getInstance().getBorderPane();
+        StackPane rootStackPane = MainScreenComponentSingleton.getInstance().getStackPane();
+        BorderPane borderPane = MainScreenComponentSingleton.getInstance().getBorderPane();
         try {
             Convenience.popupDialog(rootStackPane,borderPane,getClass().getResource("/FXML/Login.fxml"));
         } catch (IOException e) {
@@ -147,8 +134,4 @@ public class UserFunctionNavBar implements Initializable {
         }
     }
 
-    @FXML
-    void handleUserManagement(MouseEvent event) {
-
-    }
 }

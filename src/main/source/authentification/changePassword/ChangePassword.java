@@ -1,12 +1,10 @@
 package authentification.changePassword;
 
 import DAO.UserDAO;
-import MainScreen.MainPane;
+import MainScreen.MainScreenComponentSingleton;
 import POJO.UserEntity;
 import Utils.CustomValidator.StrongPasswordValidator;
 import Utils.MD5;
-import alertsDialog.CustomAlert;
-import alertsDialog.CustomAlertFactory;
 import alertsDialog.CustomAlertType;
 import authentification.loginProcess.CurrentAccountSingleton;
 import com.jfoenix.controls.JFXButton;
@@ -59,12 +57,12 @@ public class ChangePassword implements Initializable {
                 assert user != null;
                 user.setPassword(MD5.getMD5(tfNewPassword.getText()));
                 if(UserDAO.updateUser(user)) {
-                    Convenience.showAlert(MainPane.getInstance().getStackPane(),
-                            MainPane.getInstance().getBorderPane(), CustomAlertType.SUCCESS, "Change password successfully", "");
+                    Convenience.showAlert(MainScreenComponentSingleton.getInstance().getStackPane(),
+                            MainScreenComponentSingleton.getInstance().getBorderPane(), CustomAlertType.SUCCESS, "Change password successfully", "");
                     CurrentAccountSingleton.getInstance().setAccount(user);
                 }else{
-                    Convenience.showAlert(MainPane.getInstance().getStackPane(),
-                            MainPane.getInstance().getBorderPane(), CustomAlertType.ERROR, "Something went wrong!", "Please try again later");
+                    Convenience.showAlert(MainScreenComponentSingleton.getInstance().getStackPane(),
+                            MainScreenComponentSingleton.getInstance().getBorderPane(), CustomAlertType.ERROR, "Something went wrong!", "Please try again later");
                 }
             }
         }
@@ -77,8 +75,8 @@ public class ChangePassword implements Initializable {
 
     private boolean checkConfirmPassword(){
         if(!tfNewPassword.getText().equals(tfConfirmPassword.getText())){
-            Convenience.showAlert(MainPane.getInstance().getStackPane(),
-                    MainPane.getInstance().getBorderPane(), CustomAlertType.ERROR,"Confirm password does not match","");
+            Convenience.showAlert(MainScreenComponentSingleton.getInstance().getStackPane(),
+                    MainScreenComponentSingleton.getInstance().getBorderPane(), CustomAlertType.ERROR,"Confirm password does not match","");
             return false;
         }
         return true;
@@ -87,8 +85,8 @@ public class ChangePassword implements Initializable {
     private boolean authenticateCurrentPassword(){
         String hashPassword = MD5.getMD5(tfCurrentPassword.getText());
         if(!CurrentAccountSingleton.getInstance().getAccount().getPassword().equals(hashPassword)){
-            Convenience.showAlert(MainPane.getInstance().getStackPane(),
-                    MainPane.getInstance().getBorderPane(), CustomAlertType.ERROR,"Password invalid","");
+            Convenience.showAlert(MainScreenComponentSingleton.getInstance().getStackPane(),
+                    MainScreenComponentSingleton.getInstance().getBorderPane(), CustomAlertType.ERROR,"Password invalid","");
             return false;
         }
         return true;

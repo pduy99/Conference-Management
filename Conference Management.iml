@@ -43,6 +43,14 @@
     </orderEntry>
     <orderEntry type="library" name="fontawesomefx-commons-11.0" level="project" />
     <orderEntry type="library" name="javafx-swt" level="project" />
-    <orderEntry type="library" name="jfoenix-9.0.10" level="project" />
+    <orderEntry type="module-library">
+      <library name="jfoenix">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jfoenix-9.0.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -2,6 +2,7 @@ package POJO;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class ConferenceEntity {
     private int id;
     private String shortDescription;
     private String detailDescription;
-    private Timestamp time;
+    private Date time;
     private String name;
     private String image;
     private Set<UserEntity> users = new HashSet<UserEntity>(0);
@@ -54,11 +55,11 @@ public class ConferenceEntity {
 
     @Basic
     @Column(name = "time", nullable = false)
-    public Timestamp getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

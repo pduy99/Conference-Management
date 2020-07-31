@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/dashboard.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminManageConferenceComponent.ManageConferenceController">
+    <children>
+      <VBox prefHeight="705.0" prefWidth="1200.0">
+         <children>
+            <Pane prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #2A2E37;">
+               <children>
+                  <TextField fx:id="searchBox" focusTraversable="false" layoutX="946.0" layoutY="19.0" prefHeight="30.0" prefWidth="240.0" promptText="Search" styleClass="search-field" stylesheets="@../css/fullpackstyling.css" />
+                  <Button fx:id="btnAddConference" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#handleAddConference" text="Add New Conference" />
+               </children>
+            </Pane>
+              <TableView fx:id="tableview" editable="true" prefHeight="655.0" prefWidth="1200.0" stylesheets="@../css/tableview_style.css">
+                  <columns>
+                      <TableColumn fx:id="colIndex" prefWidth="50.0" text="#" />
+                      <TableColumn fx:id="colConName" prefWidth="300.0" text="Conference Name" />
+                      <TableColumn fx:id="colTime" prefWidth="200.0" text="Time" />
+                      <TableColumn fx:id="colLocation" prefWidth="300.0" text="Location" />
+                      <TableColumn fx:id="colShortDescription" prefWidth="300.0" text="Short Description" />
+                      <TableColumn fx:id="colNumEnrollment" prefWidth="150.0" text="No. Enrollment" />
+                      <TableColumn fx:id="colDeleteButton" prefWidth="100.0" />
+                      <TableColumn fx:id="colDetailButton" prefWidth="100.0" />
+                  </columns>
+              </TableView>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>

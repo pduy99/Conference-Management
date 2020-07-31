@@ -13,6 +13,7 @@ import Utils.MD5;
 import alertsDialog.CustomAlert;
 import alertsDialog.CustomAlertType;
 import animatefx.animation.ZoomIn;
+import authentification.loginProcess.CurrentAccountSingleton;
 import authentification.loginProcess.Login;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -138,17 +139,22 @@ public class AuthenticationController implements Initializable {
         if(tfUserName.validate() && tfPassword.validate()) {
             Login login = new Login();
             try {
-                login.getAccount(username, password);
-                //Sign in successfully
-                Convenience.switchScene(rootAnchorPane,getClass().getResource("/FXML/Main.fxml"));
-
+                if(login.getAccount(username, password)){
+                    //Sign in successfully
+                    Convenience.switchScene(rootAnchorPane,getClass().getResource("/FXML/Main.fxml"));
+                }
+                else{
+                    Convenience.showAlert(rootPane,rootBorderPane,CustomAlertType.ERROR,"Account Blocked",
+                            "This account has been blocked, please contact admin for more information");
+                }
             } catch (Exception ex) {
                 if (!InternetHandler.checkInternetConnection()) {
                     Convenience.popupDialog(rootPane, rootBorderPane, getClass().getResource("/FXML/no_internet.fxml"));
                 } else if (DBConnection.getSessionFactory() == null) {
                     Convenience.popupDialog(rootPane, rootBorderPane, getClass().getResource("/FXML/no_database.fxml"));
                 } else {
-                    Convenience.showAlert(rootPane, rootBorderPane, CustomAlertType.ERROR, "Login error", "Username or password invalid");
+                    Convenience.showAlert(rootPane, rootBorderPane, CustomAlertType.ERROR, "Login error",
+                            "Username or password invalid");
                 }
                 ex.printStackTrace();
             }

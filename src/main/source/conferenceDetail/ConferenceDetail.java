@@ -1,18 +1,25 @@
 package conferenceDetail;
 
 import DAO.ConferenceDAO;
+import DAO.LocationDAO;
 import DAO.UserDAO;
-import MainScreen.MainPane;
+import Dashboard.DashboardComponentSingleton;
+import MainScreen.MainScreenComponentSingleton;
 import POJO.ConferenceEntity;
 import POJO.UserEntity;
+import Utils.DateTimePicker.DateTimePicker;
 import alertsDialog.CustomAlertType;
 import authentification.loginProcess.CurrentAccountSingleton;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import handlers.Convenience;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -26,8 +33,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import listviewComponent.ConferenceListSingleton;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -38,10 +51,13 @@ import java.util.ResourceBundle;
 public class ConferenceDetail implements Initializable {
 
     @FXML
+    private StackPane rootStackPane;
+
+    @FXML
     private ImageView ivConferenceImage;
 
     @FXML
-    private Label tfConferenceName;
+    private JFXTextField tfConferenceName;
 
     @FXML
     private Label tfLocation;
@@ -56,13 +72,22 @@ public class ConferenceDetail implements Initializable {
     private Label linkAttendanceList;
 
     @FXML
-    private Text tfShortDescription;
+    private JFXTextArea tfShortDescription;
 
     @FXML
-    private Text tfDetailDescription;
+    private JFXTextArea tfDetailDescription;
 
     @FXML
     private JFXButton btnEnroll;
+
+    @FXML
+    private JFXButton btnSaveEdit;
+
+    @FXML
+    private Label lbChangeLocation;
+
+    @FXML
+    private Label lbChangeTime;
 
     @FXML
     private TableView<String> tableviewAttendanceList;
@@ -75,8 +100,61 @@ public class ConferenceDetail implements Initializable {
 
     private ConferenceEntity currentConference;
 
+    @FXML
+    private void handleChangeLocation(MouseEvent mouseEvent) {
+
+    }
+
+    @FXML
+    private void handleChangeTime(MouseEvent mouseEvent) throws IOException {
+        DateTimePicker dateTimePicker = Convenience.popupDialog(rootStackPane,
+                DashboardComponentSingleton.getInstance().getRootVBox(),getClass().getResource("/FXML/datetime_picker.fxml"));
+        dateTimePicker.getButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Convenience.closePreviousDialog();
+                Date date = dateTimePicker.getDateTime();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                String strDate = dateFormat.format(date);
+                tfTime.setText(strDate);
+            }
+        });
+    }
+
+    @FXML
+    private void handleSaveEdit(MouseEvent mouseEvent) throws ParseException {
+        ConferenceEntity conference = ConferenceDAO.findByPk(currentConference.getId());
+        assert conference != null;
+        conference.setImage(ivConferenceImage.getImage().getUrl());
+        conference.setDetailDescription(tfDetailDescription.getText());
+        conference.setLocation(LocationDAO.findByAddress(tfLocation.getText()));
+        conference.setShortDescription(tfShortDescription.getText());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        Date date = simpleDateFormat.parse(tfTime.getText());
+        conference.setTime(date);
+        conference.setName(tfConferenceName.getText());
+
+        if(ConferenceDAO.updateConference(conference)){
+            Convenience.showAlert(rootStackPane,DashboardComponentSingleton.getInstance().getRootVBox(),CustomAlertType.SUCCESS,"" +
+                    "Update conference successfully","");
+            ConferenceListSingleton.getInstance().refresh();
+        }else{
+            Convenience.showAlert(rootStackPane,DashboardComponentSingleton.getInstance().getRootVBox(),CustomAlertType.ERROR,"" +
+                    "Update conference failed","Something went wrong, please try again later");
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnEnroll.managedProperty().bind(btnEnroll.visibleProperty());
+        btnSaveEdit.managedProperty().bind(btnSaveEdit.visibleProperty());
+        lbChangeLocation.managedProperty().bind(lbChangeLocation.visibleProperty());
+        lbChangeTime.managedProperty().bind(lbChangeTime.visibleProperty());
+
+        lbChangeTime.setVisible(false);
+        lbChangeLocation.setVisible(false);
+        btnSaveEdit.setVisible(false);
+
         linkAttendanceList.setOnMouseClicked((MouseEvent event)-> setupParticipantTableView());
         handleEnrollButton();
     }
@@ -97,7 +175,9 @@ public class ConferenceDetail implements Initializable {
         //Location
         tfLocation.setText(conference.getLocation().getAddress());
         //Time
-        tfTime.setText(conference.getTime().toLocaleString());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String strDate = dateFormat.format(conference.getTime());
+        tfTime.setText(strDate);
         //Capacity
         setTicketText();
         //Short description
@@ -155,8 +235,8 @@ public class ConferenceDetail implements Initializable {
             else{
                 if(CurrentAccountSingleton.getInstance().getRole() ==0){
                     //Guest
-                    StackPane rootStackPane = MainPane.getInstance().getStackPane();
-                    BorderPane nodeToBlur = MainPane.getInstance().getBorderPane();
+                    StackPane rootStackPane = MainScreenComponentSingleton.getInstance().getStackPane();
+                    BorderPane nodeToBlur = MainScreenComponentSingleton.getInstance().getBorderPane();
                     Convenience.showAlert(rootStackPane,nodeToBlur, CustomAlertType.WARNING,"Sign in to continue","To enroll conferences, you must be signed in.");
                 }
                 else{
@@ -167,6 +247,22 @@ public class ConferenceDetail implements Initializable {
             setStyleEnrollButton(checkIfHaveEnrolled());
             setupParticipantTableView();
         });
+    }
+
+    public void openForEdit(boolean editable){
+        if(editable){
+            btnEnroll.setVisible(false);
+            btnSaveEdit.setVisible(true);
+            lbChangeLocation.setVisible(true);
+            lbChangeTime.setVisible(true);
+            tfShortDescription.setEditable(true);
+            tfDetailDescription.setEditable(true);
+            tfConferenceName.setEditable(true);
+        }
+    }
+
+    public void handleChangeBasicInfor(MouseEvent mouseEvent) {
+
     }
 }
 

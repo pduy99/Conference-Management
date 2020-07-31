@@ -7,20 +7,23 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    public static void getAllUser(){
+    public static List<UserEntity> getAllUser(){
+        List<UserEntity> res = new ArrayList<>(0);
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        String hql = "select u.displayName, u.username from POJO.UserEntity u";
+        String hql = "From POJO.UserEntity";
         List list = session.createQuery(hql).list();
         list.forEach(o->{
-            Object[] objects = (Object[])o;
-            System.out.println(objects[0] + "|" + objects[1]);
+            UserEntity temp = (UserEntity)o;
+            res.add(temp);
         });
         transaction.commit();
         session.close();
+        return res;
     }
 
     public static int addUser(String displayName, String username, String password, String mail){
@@ -136,5 +139,25 @@ public class UserDAO {
         transaction.commit();
         session.close();
         return res;
+    }
+
+    public static void blockUser(int userId){
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        UserEntity user = findByPk(userId);
+        user.setBlocked((byte) 1);
+        session.saveOrUpdate(user);
+        transaction.commit();
+        session.close();
+    }
+
+    public static void unblockUser(int userId){
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        UserEntity user = findByPk(userId);
+        user.setBlocked(null);
+        session.saveOrUpdate(user);
+        transaction.commit();
+        session.close();
     }
 }

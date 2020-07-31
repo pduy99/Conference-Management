@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="rootStackPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Dashboard.DashBoard">
+   <children>
+      <VBox fx:id="rootVBox" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Pane fx:id="toolbar" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #2A2E37;">
+               <children>
+                  <HBox layoutX="17.0" layoutY="6.0">
+                     <children>
+                        <ImageView fx:id="btnExit" fitHeight="12.0" fitWidth="12.0" onMouseClicked="#handleMouseClicked" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/icon_button_close.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="btnMinimize" fitHeight="13.0" fitWidth="13.0" onMouseClicked="#handleMouseClicked" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/icon_button_minimize.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+            <JFXTabPane id="mainTab" fx:id="tabPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../css/dashboard.css" tabMaxWidth="500.0" tabMinWidth="300.0">
+                <tabs>
+                    <Tab text="User Management">
+                        <content>
+                            <AnchorPane fx:id="tabUserManagement" minHeight="0.0" minWidth="0.0">
+                </AnchorPane>
+                        </content>
+                    </Tab>
+                    <Tab text="Conference Management">
+                        <content>
+                            <AnchorPane fx:id="tabConferenceManagement" minHeight="0.0" minWidth="0.0">
+                </AnchorPane>
+                        </content>
+                    </Tab>
+                    <Tab text="Pending List">
+                        <content>
+                            <AnchorPane fx:id="tabPendingList" minHeight="0.0" minWidth="0.0">
+                </AnchorPane>
+                        </content>
+                    </Tab>
+                </tabs>
+            </JFXTabPane>
+            <HBox alignment="CENTER" prefHeight="20.0" prefWidth="200.0" style="-fx-background-color: #2A2E37;">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#handleBackHomeScreen" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/icon_home.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lbBackToHome" onMouseClicked="#handleBackHomeScreen" style="-fx-text-fill: #FFFF8D;" text="Back To Home Screen">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

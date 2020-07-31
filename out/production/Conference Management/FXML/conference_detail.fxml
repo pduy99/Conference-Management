@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -14,9 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conferenceDetail.ConferenceDetail">
+<StackPane fx:id="rootStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conferenceDetail.ConferenceDetail">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -28,24 +29,32 @@
                            <image>
                               <Image url="@../img/dog-carnival-2019.png" />
                            </image></ImageView>
-                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="350.0">
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="379.0">
                            <children>
-                              <Label fx:id="tfConferenceName" style="-fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 18px;" text="Lễ hội thú cưng 2020" />
-                              <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="200.0">
+                              <HBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <JFXTextField fx:id="tfConferenceName" editable="false" prefHeight="26.0" prefWidth="315.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" unFocusColor="#4d4d4d00" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="347.0">
                                  <children>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../icons/icon_location.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="tfLocation" prefHeight="18.0" prefWidth="180.0" text="Label" underline="true" wrapText="true">
+                                    <Label fx:id="tfLocation" prefHeight="18.0" prefWidth="280.0" text="Label" underline="true" wrapText="true">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets left="10.0" />
+                                          <Insets left="10.0" right="5.0" />
                                        </HBox.margin>
                                     </Label>
+                                    <Label fx:id="lbChangeLocation" onMouseClicked="#handleChangeLocation" style="-fx-text-fill: #3462A4;" text="Change">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Label>
                                  </children>
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -58,14 +67,18 @@
                                           <Image url="@../icons/icon_time.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="tfTime" prefHeight="15.0" prefWidth="178.0" text="Label">
+                                    <Label fx:id="tfTime" prefHeight="18.0" prefWidth="280.0" text="Label">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets left="10.0" />
+                                          <Insets left="10.0" right="5.0" />
                                        </HBox.margin>
                                     </Label>
+                                    <Label fx:id="lbChangeTime" onMouseClicked="#handleChangeTime" style="-fx-text-fill: #3462A4;" text="Change">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Label>
                                  </children>
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -78,7 +91,7 @@
                                           <Image url="@../icons/icon_ticket.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="tfCapacity" prefHeight="17.0" prefWidth="92.0" text="300/300">
+                                    <Label fx:id="tfCapacity" prefHeight="18.0" prefWidth="327.0" text="300/300">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
@@ -116,12 +129,11 @@
                   </Line>
                   <HBox prefHeight="80.0" prefWidth="200.0">
                      <children>
-                        <Label style="-fx-text-fill: #B00805; -fx-font-weight: bold; -fx-font-size: 15px;" text="Short Description:" />
-                        <Text fx:id="tfShortDescription" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15px;" text="Short description here" wrappingWidth="380.0">
+                        <Label style="-fx-text-fill: #B00805; -fx-font-weight: bold; -fx-font-size: 15px;" text="Short Description:">
                            <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Text>
+                              <Insets right="5.0" />
+                           </HBox.margin></Label>
+                        <JFXTextArea fx:id="tfShortDescription" editable="false" prefHeight="62.0" prefWidth="435.0" style="-fx-font-size: 15px;" text="Short Description" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -129,12 +141,11 @@
                   </HBox>
                   <HBox layoutX="20.0" layoutY="243.0" prefHeight="120.0" prefWidth="200.0">
                      <children>
-                        <Label style="-fx-text-fill: #B00805; -fx-font-weight: bold; -fx-font-size: 15px;" text="Detail Description:" />
-                        <Text fx:id="tfDetailDescription" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15px;" text="Detail description here" wrappingWidth="380.0">
+                        <Label style="-fx-text-fill: #B00805; -fx-font-weight: bold; -fx-font-size: 15px;" text="Detail Description:">
                            <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Text>
+                              <Insets right="5.0" />
+                           </HBox.margin></Label>
+                        <JFXTextArea fx:id="tfDetailDescription" editable="false" prefHeight="116.0" prefWidth="435.0" style="-fx-font-size: 15px;" text="Detail Description" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -142,7 +153,15 @@
                   </HBox>
                   <HBox alignment="BOTTOM_RIGHT" prefHeight="60.0" prefWidth="200.0">
                      <children>
-                        <JFXButton fx:id="btnEnroll" alignment="CENTER" prefHeight="25.0" prefWidth="130.0" style="-fx-cursor: hand; -fx-background-color: #B00805;" styleClass="listButtons" stylesheets="@../css/fullpackstyling.css" text="Enroll me" textFill="#f2f7f9">
+                        <JFXButton fx:id="btnSaveEdit" alignment="CENTER" onMouseClicked="#handleSaveEdit" prefHeight="25.0" prefWidth="130.0" style="-fx-cursor: hand; -fx-background-color: #B00805;" styleClass="listButtons" stylesheets="@../css/fullpackstyling.css" text="Save" textFill="#f2f7f9">
+                           <font>
+                              <Font name="Baghdad Regular" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="btnEnroll" alignment="CENTER" layoutX="459.0" layoutY="28.0" prefHeight="25.0" prefWidth="130.0" style="-fx-cursor: hand; -fx-background-color: #B00805;" styleClass="listButtons" stylesheets="@../css/fullpackstyling.css" text="Enroll me" textFill="#f2f7f9">
                            <font>
                               <Font name="Baghdad Regular" size="14.0" />
                            </font>

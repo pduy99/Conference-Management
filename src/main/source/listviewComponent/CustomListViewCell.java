@@ -2,7 +2,7 @@ package listviewComponent;
 
 import DAO.ConferenceDAO;
 import DAO.UserDAO;
-import MainScreen.MainPane;
+import MainScreen.MainScreenComponentSingleton;
 import POJO.ConferenceEntity;
 import POJO.LocationEntity;
 import POJO.UserEntity;
@@ -25,6 +25,8 @@ import javafx.scene.text.Text;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -122,19 +124,20 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
     }
 
     protected void setStyleEnrollButton(boolean isEnrolled){
-        int ticketLeft = location.getCapacity() - ConferenceDAO.countEnrollment(conferenceID);
-        if(ticketLeft == 0){
-            btnEnroll.setDisable(true);
-        }
-        if(isEnrolled){
-            // already enrolled
-            btnEnroll.setText("Disenroll me");
-            btnEnroll.setStyle("-fx-background-color: #B00805;");
-        }
-        if(!isEnrolled){
-            btnEnroll.setText("Enroll me");
-            btnEnroll.setStyle("-fx-background-color: #18C428;");
-        }
+            int ticketLeft = location.getCapacity() - ConferenceDAO.countEnrollment(conferenceID);
+            if (ticketLeft == 0) {
+                btnEnroll.setDisable(true);
+            }
+            if (isEnrolled) {
+                // already enrolled
+                btnEnroll.setText("Disenroll me");
+                btnEnroll.setStyle("-fx-background-color: #B00805;");
+            }
+            if (!isEnrolled) {
+                btnEnroll.setText("Enroll me");
+                btnEnroll.setStyle("-fx-background-color: #18C428;");
+            }
+
     }
 
     @Override
@@ -156,8 +159,8 @@ public class CustomListViewCell extends JFXListCell<ConferenceEntity> implements
             else{
                 if(CurrentAccountSingleton.getInstance().getRole() ==0){
                     //Guest
-                    StackPane rootStackPane = MainPane.getInstance().getStackPane();
-                    BorderPane nodeToBlur = MainPane.getInstance().getBorderPane();
+                    StackPane rootStackPane = MainScreenComponentSingleton.getInstance().getStackPane();
+                    BorderPane nodeToBlur = MainScreenComponentSingleton.getInstance().getBorderPane();
                     Convenience.showAlert(rootStackPane,nodeToBlur, CustomAlertType.WARNING,"Sign in to continue","To enroll conferences, you must be signed in.");
                 }
                 else{

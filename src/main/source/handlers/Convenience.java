@@ -99,7 +99,7 @@ public final class Convenience {
      * @throws IOException throws if the content could not be loaded
      */
     public static <T> T popupDialog(StackPane stackPane, Pane paneToBlur, URL fxmlUrl) throws IOException {
-        closePreviousDialog();
+        //closePreviousDialog();
 
         BoxBlur blur = new BoxBlur(3, 3, 3);
 

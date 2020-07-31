@@ -19,8 +19,9 @@ public class Login {
      * @param username this is username
      * @param password this is password has been hashed
      * @throws IndexOutOfBoundsException when credentials invalid
+     * @return true if successfully login, false if account is blocked
      */
-    public void getAccount(String username, String password) throws IndexOutOfBoundsException{
+    public boolean getAccount(String username, String password) throws IndexOutOfBoundsException{
         Session session = DBConnection.getSessionFactory().openSession();
         String hql = "from POJO.UserEntity as u where u.username = :username and u.password = :password";
         List list = session.createQuery(hql)
@@ -28,9 +29,15 @@ public class Login {
                 .setParameter("password",password)
                 .list();
         session.close();
-
-        currentAccountSingleton = CurrentAccountSingleton.getInstance();
-        currentAccountSingleton.setAccount((UserEntity) list.get(0));
+        UserEntity user = (UserEntity) list.get(0);
+        if(user.getBlocked() == null){
+            currentAccountSingleton = CurrentAccountSingleton.getInstance();
+            currentAccountSingleton.setAccount((UserEntity) list.get(0));
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     /***

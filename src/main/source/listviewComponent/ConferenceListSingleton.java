@@ -8,6 +8,7 @@ import authentification.loginProcess.CurrentAccountSingleton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
@@ -21,8 +22,17 @@ public class ConferenceListSingleton {
     private static ConferenceListSingleton instance;
     private static final Object mutex = new Object();
     private static volatile ObservableList<ConferenceEntity> conferenceObservableList;
-    private static ListView<ConferenceEntity> conferenceListView;
     private static FilteredList<ConferenceEntity> filteredList;
+    private static SortedList<ConferenceEntity> sortedList;
+
+    public SortedList<ConferenceEntity> getSortedList() {
+        return sortedList;
+    }
+
+    public void setSortedList(SortedList<ConferenceEntity> sortedList) {
+        ConferenceListSingleton.sortedList = sortedList;
+    }
+
     private int listType = 0; //0: all conference list, 1: my conference list
 
     private ConferenceListSingleton(){
@@ -30,8 +40,7 @@ public class ConferenceListSingleton {
         conferenceObservableList = FXCollections.observableArrayList();
         conferenceObservableList.addAll(tempList);
         filteredList = new FilteredList<>(conferenceObservableList);
-        conferenceListView = new ListView<>();
-        conferenceListView.setItems(filteredList);
+        sortedList = new SortedList<>(filteredList);
     }
 
     public static ConferenceListSingleton getInstance(){
@@ -47,13 +56,6 @@ public class ConferenceListSingleton {
         return res;
     }
 
-    public void setConferenceListView(ListView<ConferenceEntity> conferenceListView) {
-        ConferenceListSingleton.conferenceListView = conferenceListView;
-    }
-
-    public ListView<ConferenceEntity> getConferenceListView() {
-        return conferenceListView;
-    }
 
     public ObservableList<ConferenceEntity> getConferenceObservableList(){
         return conferenceObservableList;

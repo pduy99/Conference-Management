@@ -7,25 +7,26 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import listviewComponent.ConferenceListSingleton;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -95,11 +96,11 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        MainPane.getInstance().setStackPane(rootPane);
-        MainPane.getInstance().setBorderPane(borderPane);
-        MainPane.getInstance().setListTitle(tfListTitle);
-        MainPane.getInstance().setListContainers(listContainer);
-        MainPane.getInstance().setProfileContainer(profileContainer);
+        MainScreenComponentSingleton.getInstance().setStackPane(rootPane);
+        MainScreenComponentSingleton.getInstance().setBorderPane(borderPane);
+        MainScreenComponentSingleton.getInstance().setListTitle(tfListTitle);
+        MainScreenComponentSingleton.getInstance().setListContainers(listContainer);
+        MainScreenComponentSingleton.getInstance().setProfileContainer(profileContainer);
 
         makeDraggable(paneToolbar);
         setupCombobox();
@@ -114,6 +115,16 @@ public class MainScreenController implements Initializable {
     private void setLogin(){
         account = CurrentAccountSingleton.getInstance().getAccount();
         tfUserDisplayName.textProperty().bind(new SimpleStringProperty(account.getDisplayName()));
+        try {
+            String avatar_name = "/img/" + account.getUsername() + "_avatar.png";
+            InputStream imageURL = getClass().getResourceAsStream(avatar_name);
+            Image image = new Image(imageURL);
+            ivAvatarRound.setFill(new ImagePattern(image));
+        }catch (Exception e){
+            InputStream imageURL = getClass().getResourceAsStream("/img/default_user_avatar.png");
+            Image image = new Image(imageURL);
+            ivAvatarRound.setFill(new ImagePattern(image));
+        }
     }
 
     private void setupCombobox(){

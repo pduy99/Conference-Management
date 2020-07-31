@@ -61,4 +61,27 @@ public class ConferenceDAO {
 
         return listParticipantName;
     }
+
+    public static boolean updateConference(ConferenceEntity conference){
+        boolean res = false;
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.saveOrUpdate(conference);
+            res = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        transaction.commit();
+        session.close();
+        return res;
+    }
+
+    public static void remove(ConferenceEntity conference){
+        Session session = DBConnection.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(conference);
+        transaction.commit();
+        session.close();
+    }
 }

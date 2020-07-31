@@ -7,9 +7,9 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #343843;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userFunctionNavbar.UserFunctionNavBar">
     <children>
-      <HBox fx:id="allConferences" alignment="CENTER_LEFT" layoutX="10.0" layoutY="60.0" onMouseClicked="#handleAllConferences" prefHeight="40.0" prefWidth="210.0" styleClass="HBox" stylesheets="@../css/function_nav.css">
+      <HBox fx:id="dashBoard" alignment="CENTER_LEFT" layoutX="10.0" layoutY="161.0" onMouseClicked="#handleDashBoard" prefHeight="40.0" prefWidth="210.0" styleClass="HBox" stylesheets="@../css/function_nav.css">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="All Conferences">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="Dashboard" wrappingWidth="170.0">
                <HBox.margin>
                   <Insets left="15.0" />
                </HBox.margin>
@@ -33,6 +33,18 @@
             <VBox.margin>
                 <Insets bottom="10.0" />
             </VBox.margin></HBox>
+      <HBox fx:id="allConferences" alignment="CENTER_LEFT" layoutX="10.0" layoutY="60.0" onMouseClicked="#handleAllConferences" prefHeight="40.0" prefWidth="210.0" styleClass="HBox" stylesheets="@../css/function_nav.css">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="All Conferences">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </HBox>
         <HBox fx:id="myConferences" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleMyConferences" prefHeight="40.0" prefWidth="210.0" styleClass="HBox" stylesheets="@../css/function_nav.css">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="My Conferences">
@@ -45,42 +57,6 @@
             <Insets bottom="10.0" />
          </VBox.margin>
         </HBox>
-      <HBox fx:id="userManagement" alignment="CENTER_LEFT" layoutX="10.0" layoutY="60.0" onMouseClicked="#handleUserManagement" prefHeight="40.0" prefWidth="210.0" styleClass="HBox" stylesheets="@../css/function_nav.css">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="User Management">
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </Text>
-         </children>
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox fx:id="conferenceManagement" alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMouseClicked="#handleConferenceManagement" prefHeight="40.0" prefWidth="210.0" styleClass="HBox" stylesheets="@../css/function_nav.css">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="Conference Management" wrappingWidth="170.0">
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </Text>
-         </children>
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox fx:id="pendingList" alignment="CENTER_LEFT" layoutX="10.0" layoutY="161.0" onMouseClicked="#handlePendingList" prefHeight="40.0" prefWidth="210.0" styleClass="HBox" stylesheets="@../css/function_nav.css">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="Pending List" wrappingWidth="170.0">
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </Text>
-         </children>
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-      </HBox>
       <HBox fx:id="signIn" alignment="CENTER_LEFT" layoutX="10.0" layoutY="151.0" onMouseClicked="#handleSignIn" prefHeight="40.0" prefWidth="210.0" styleClass="HBox" stylesheets="@../css/function_nav.css">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #AAAAAA; -fx-font-size: 20px;" text="Sign In / Register">

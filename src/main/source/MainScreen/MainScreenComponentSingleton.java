@@ -1,19 +1,17 @@
 package MainScreen;
 
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.jboss.jandex.Main;
 
 /**
  * A singleton class that keeps the reference to the root StackPane of the main UI.
  * @created on 7/23/2020
  * @author: Helios - 1712018
  */
-public class MainPane {
-    private static MainPane instance;
+public class MainScreenComponentSingleton {
+    private static MainScreenComponentSingleton instance;
 
     private static StackPane rootStackPane;
     private static BorderPane borderPane;
@@ -21,11 +19,11 @@ public class MainPane {
     private static VBox listContainers;
     private static VBox profileContainer;
 
-    private MainPane(){}
+    private MainScreenComponentSingleton(){}
 
-    public static MainPane getInstance() {
+    public static MainScreenComponentSingleton getInstance() {
         if (instance == null) {
-            instance = new MainPane();
+            instance = new MainScreenComponentSingleton();
         }
         return instance;
     }
@@ -35,7 +33,7 @@ public class MainPane {
     }
 
     public void setListContainers(VBox listContainers) {
-        MainPane.listContainers = listContainers;
+        MainScreenComponentSingleton.listContainers = listContainers;
     }
 
     public VBox getProfileContainer() {
@@ -43,7 +41,7 @@ public class MainPane {
     }
 
     public void setProfileContainer(VBox profileContainer) {
-        MainPane.profileContainer = profileContainer;
+        MainScreenComponentSingleton.profileContainer = profileContainer;
     }
 
     public void setStackPane(StackPane stackPane) {
@@ -67,7 +65,7 @@ public class MainPane {
     }
 
     public void setListTitle(Label searchBar) {
-        MainPane.tfListTitle = searchBar;
+        MainScreenComponentSingleton.tfListTitle = searchBar;
     }
 
     public void showListContainer(){

@@ -1,10 +1,9 @@
 package listviewComponent;
 
-import MainScreen.MainPane;
+import MainScreen.MainScreenComponentSingleton;
 import POJO.ConferenceEntity;
 import conferenceDetail.ConferenceDetail;
 import handlers.Convenience;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -30,7 +29,7 @@ public class ListViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lvConferences.setItems(ConferenceListSingleton.getInstance().getFilteredList());
+        lvConferences.setItems(ConferenceListSingleton.getInstance().getSortedList());
         lvConferences.setCellFactory(customListViewCell -> new CustomListViewCell());
         lvConferences.setPlaceholder(new Label("No conferences to display"));
     }
@@ -41,8 +40,8 @@ public class ListViewController implements Initializable {
             ConferenceEntity selectedConference = lvConferences.getSelectionModel().getSelectedItem();
             if(selectedConference != null) {
                 try {
-                    ConferenceDetail conferenceDetail = Convenience.popupDialog(MainPane.getInstance().getStackPane(),
-                            MainPane.getInstance().getBorderPane(), getClass().getResource("/FXML/conference_detail.fxml"));
+                    ConferenceDetail conferenceDetail = Convenience.popupDialog(MainScreenComponentSingleton.getInstance().getStackPane(),
+                            MainScreenComponentSingleton.getInstance().getBorderPane(), getClass().getResource("/FXML/conference_detail.fxml"));
                     conferenceDetail.setupModel(selectedConference);
                 } catch (IOException e) {
                     e.printStackTrace();

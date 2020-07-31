@@ -2,14 +2,13 @@ package tableviewComponent;
 
 import DAO.ConferenceDAO;
 import DAO.UserDAO;
-import MainScreen.MainPane;
+import MainScreen.MainScreenComponentSingleton;
 import POJO.ConferenceEntity;
 import POJO.UserEntity;
 import alertsDialog.CustomAlertType;
 import authentification.loginProcess.CurrentAccountSingleton;
 import conferenceDetail.ConferenceDetail;
 import handlers.Convenience;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -25,13 +24,15 @@ import listviewComponent.ConferenceListSingleton;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
  * @created on 7/22/2020
  * @author: Helios - 1712018
  */
-public class TableViewController implements Initializable {
+public class TableViewConferencesController implements Initializable {
 
     @FXML
     private TableView<ConferenceEntity> tableview;
@@ -60,7 +61,7 @@ public class TableViewController implements Initializable {
     private UserEntity currentAccount;
     private int currentAccountID;
 
-    public TableViewController(){
+    public TableViewConferencesController(){
         try{
             currentAccount = CurrentAccountSingleton.getInstance().getAccount();
             currentAccountID = currentAccount.getId();
@@ -107,15 +108,16 @@ public class TableViewController implements Initializable {
         });
 
         colEnrollButton.setCellValueFactory(new EnrollButtonCellValueFactory());
-        tableview.setItems(ConferenceListSingleton.getInstance().getFilteredList());
+        tableview.setItems(ConferenceListSingleton.getInstance().getSortedList());
+        ConferenceListSingleton.getInstance().getSortedList().comparatorProperty().bind(tableview.comparatorProperty());
         tableview.setPlaceholder(new Label("No conferences to display"));
         tableview.setRowFactory(tv->{
             TableRow<ConferenceEntity> row = new TableRow<>();
             row.setOnMouseClicked(event->{
                 if(event.getClickCount() == 2 && (!row.isEmpty())){
                     try {
-                        ConferenceDetail conferenceDetail = Convenience.popupDialog(MainPane.getInstance().getStackPane(),
-                                MainPane.getInstance().getBorderPane(),getClass().getResource("/FXML/conference_detail.fxml"));
+                        ConferenceDetail conferenceDetail = Convenience.popupDialog(MainScreenComponentSingleton.getInstance().getStackPane(),
+                                MainScreenComponentSingleton.getInstance().getBorderPane(),getClass().getResource("/FXML/conference_detail.fxml"));
                         conferenceDetail.setupModel(row.getItem());
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -131,28 +133,27 @@ public class TableViewController implements Initializable {
         @Override
         public ObservableValue<Button> call(TableColumn.CellDataFeatures<ConferenceEntity, Button> param) {
             Button enrollButton = new Button();
-            if(checkIfHaveEnrolled(currentAccountID,param.getValue().getId())) {
-                enrollButton.setText("Disenroll me");
-                enrollButton.setOnMouseClicked((MouseEvent event)->{
-                    UserDAO.DisEnrollConference(currentAccountID,param.getValue().getId());
-                    //update();
-                    ConferenceListSingleton.getInstance().refresh();
-                });
-            }
-            else{
-                enrollButton.setText("Enroll me");
-                enrollButton.setOnMouseClicked((MouseEvent event)->{
-                    if(currentAccount.getRole() == 0){
-                        StackPane rootStackPane = MainPane.getInstance().getStackPane();
-                        BorderPane nodeToBlur = MainPane.getInstance().getBorderPane();
-                        Convenience.showAlert(rootStackPane,nodeToBlur,CustomAlertType.WARNING,"Sign in to continue","To enroll conferences, you must be signed in.");
-                    }else{
-                        UserDAO.EnrollConference(currentAccountID,param.getValue().getId());
+                if (checkIfHaveEnrolled(currentAccountID, param.getValue().getId())) {
+                    enrollButton.setText("Disenroll me");
+                    enrollButton.setOnMouseClicked((MouseEvent event) -> {
+                        UserDAO.DisEnrollConference(currentAccountID, param.getValue().getId());
                         //update();
                         ConferenceListSingleton.getInstance().refresh();
-                    }
-                });
-            }
+                    });
+                } else {
+                    enrollButton.setText("Enroll me");
+                    enrollButton.setOnMouseClicked((MouseEvent event) -> {
+                        if (currentAccount.getRole() == 0) {
+                            StackPane rootStackPane = MainScreenComponentSingleton.getInstance().getStackPane();
+                            BorderPane nodeToBlur = MainScreenComponentSingleton.getInstance().getBorderPane();
+                            Convenience.showAlert(rootStackPane, nodeToBlur, CustomAlertType.WARNING, "Sign in to continue", "To enroll conferences, you must be signed in.");
+                        } else {
+                            UserDAO.EnrollConference(currentAccountID, param.getValue().getId());
+                            //update();
+                            ConferenceListSingleton.getInstance().refresh();
+                        }
+                    });
+                }
             return new SimpleObjectProperty<>(enrollButton);
         }
     }

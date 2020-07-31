@@ -1,7 +1,7 @@
 package profileController;
 
 import DAO.UserDAO;
-import MainScreen.MainPane;
+import MainScreen.MainScreenComponentSingleton;
 import POJO.UserEntity;
 import Utils.StringUtils;
 import alertsDialog.CustomAlertType;
@@ -71,8 +71,8 @@ public class ProfileController implements Initializable {
 
     @FXML
     void btnChangePasswordClick(MouseEvent event) throws IOException {
-        ChangePassword changePassword = Convenience.popupDialog(MainPane.getInstance().getStackPane(),
-                MainPane.getInstance().getBorderPane(),getClass().getResource("/FXML/change_password.fxml"));
+        ChangePassword changePassword = Convenience.popupDialog(MainScreenComponentSingleton.getInstance().getStackPane(),
+                MainScreenComponentSingleton.getInstance().getBorderPane(),getClass().getResource("/FXML/change_password.fxml"));
     }
 
     @FXML
@@ -85,8 +85,8 @@ public class ProfileController implements Initializable {
     @FXML
     void btnSaveChangesClick(MouseEvent event) {
         if(updateProfile()) {
-            Convenience.showAlert(MainPane.getInstance().getStackPane(),
-                    MainPane.getInstance().getBorderPane(),CustomAlertType.SUCCESS,"Update profile successfully","");
+            Convenience.showAlert(MainScreenComponentSingleton.getInstance().getStackPane(),
+                    MainScreenComponentSingleton.getInstance().getBorderPane(),CustomAlertType.SUCCESS,"Update profile successfully","");
             setTextFieldsUneditable();
             btnSaveChanges.setVisible(false);
         }
@@ -137,7 +137,9 @@ public class ProfileController implements Initializable {
             Image image = new Image(imageURL);
             ivAvatar.setFill(new ImagePattern(image));
         }catch (Exception e){
-            e.printStackTrace();
+            InputStream imageURL = getClass().getResourceAsStream("/img/default_user_avatar.png");
+            Image image = new Image(imageURL);
+            ivAvatar.setFill(new ImagePattern(image));
         }
 
         String role = user.getRole() == 1 ? "User" : "Admin";
@@ -183,8 +185,8 @@ public class ProfileController implements Initializable {
         //Username is changed but duplicate another account
         if(!username.equals(CurrentAccountSingleton.getInstance().getAccount().getUsername())){
             if(UserDAO.findByUserName(username)==null){
-                Convenience.showAlert(MainPane.getInstance().getStackPane(),
-                        MainPane.getInstance().getBorderPane(), CustomAlertType.ERROR,"Username already existed","Please choose another username");
+                Convenience.showAlert(MainScreenComponentSingleton.getInstance().getStackPane(),
+                        MainScreenComponentSingleton.getInstance().getBorderPane(), CustomAlertType.ERROR,"Username already existed","Please choose another username");
                 return false;
             }
         }
@@ -194,16 +196,16 @@ public class ProfileController implements Initializable {
             try {
                 Date birthday = new SimpleDateFormat("dd/MM/yyyy").parse(stringBirthday);
             } catch (ParseException e) {
-                Convenience.showAlert(MainPane.getInstance().getStackPane(),
-                        MainPane.getInstance().getBorderPane(), CustomAlertType.ERROR,"Birthday invalid","");
+                Convenience.showAlert(MainScreenComponentSingleton.getInstance().getStackPane(),
+                        MainScreenComponentSingleton.getInstance().getBorderPane(), CustomAlertType.ERROR,"Birthday invalid","");
                 return false;
             }
         }
 
         // Email is invalid
         if(!StringUtils.validateEmail(email)){
-            Convenience.showAlert(MainPane.getInstance().getStackPane(),
-                    MainPane.getInstance().getBorderPane(), CustomAlertType.ERROR,"Email not valid","");
+            Convenience.showAlert(MainScreenComponentSingleton.getInstance().getStackPane(),
+                    MainScreenComponentSingleton.getInstance().getBorderPane(), CustomAlertType.ERROR,"Email not valid","");
             return false;
         }
         return true;
