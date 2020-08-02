@@ -34,53 +34,67 @@
 
 ## Screenshots
 
-  ### 1. Sign In / Sign Up Screen
+  ### 1. Màn hình đăng nhập / đăng kí
   
-  Main Screen            |  Select trending period    |
+  Màn hình đăng nhập            |  Màn hình đăng kí    |
 :-------------------------:|:-------------------------:
 ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/signin.png?raw=true) |  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/signup.png?raw=true) 
 
-  ### 2. MainScreen
-  You can Login as Guest to see MainScreen but cannot enroll any conferences
+  ### 2. Màn hình chính
+  Người dùng có thể đăng nhập dưới dạng khách bằng chức năng **Login as Guest**, có thể xem danh sách hội nghị và thông tin chi tiết của các hội nghị này nhưng không thể đăng kí tham dự
   
-   Main Screen            |  Select trending period    |
+  Xem dạng List view           |  Xem dạng Table view   |
 :-------------------------:|:-------------------------:
 ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/guest_login.png?raw=true) |  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/tableview.png?raw=true) 
 
-  ### 3. Conference Detail
-  Guest can also view conference's detail
+  ### 3. Màn hình chi tiết hội nghị
   
   ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/detail.png?raw=true)
 
-  ### 4. Login dialog
-  Guest can login via dialog
+  ### 4. dialog đăng nhập nhanh
+    Chương trình hỗ trợ Login Dialog cho khách đăng nhập nhanh
   ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/login_dialog.png?raw=true)
   
-  ### 5. Enroll Conference
+  ### 5. Đăng kí tham dự hội nghị 
+    *Pending: Đang chờ Admin xét duyệt*
+    *Approved: Đã được admin xét duyệt*
 ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/enroll.png?raw=true)
 
-  ### 6. My enrolled conferences
+  ### 6. Xem danh sách hội nghị đã đăng kí
 
 ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/my_conferences.png?raw=true)
 
-  ### 7. Search Conference
+  ### 7. Chức năng tìm kiếm hội nghị
 
 ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/search.png?raw=true)
 
-  ### 8. Profile
-Profile            |  Edit Profile    | Change Password |
+  ### 8. Màn hình hồ sơ cá nhân
+Màn hình hồ sơ cá nhân            |  Sửa đổi thông tin cá nhân    | Thay đổi mật khẩu |
 :-------------------------:|:-------------------------:|:---------------------:
 ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/profile.png?raw=true) |  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/edit_profile.png?raw=true) | ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/change_password.png?raw=true)
 
-  ### 9. Dashboard
+  ### 9. Màn hình Dashboard
+   *Admin có thể block/unblock user truy cập vào ứng dụng tại màn hình này*
   ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/Dashboard.png?raw=true)
   
-  ### 10. Admin Manage Conferences
+  ### 10. Màn hình quản lý sự kiện
   
- Conference Manage Screen            |  Edit Conference    |
+ Danh sách các sự kiện            |  Thay đổi thông tin sự kiện    |
 :-------------------------:|:-------------------------:
 ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/manage_conference.png?raw=true) |  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/edit_conference.png?raw=true) 
   
-  ### 11. Admin Approve/Disapprove Request Enrollment
+  ### 11. Màn hình xét duyệt các yêu cầu tham dự hội nghị
   ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/management_pendingList.png?raw=true)
   
+  
+## Video Demo
+Xem Video demo [tại đây](https://www.youtube.com/watch?v=HmuM40pd6n8)
+
+## Các thư viện hỗ trợ:
+
+  * [JFoenix](https://github.com/jfoenixadmin/JFoenix): JavaFX Material Design Library
+  * [AnimateFX](https://github.com/Typhon0/AnimateFX) : JavaFX animations
+  
+## Contributing
+
+  Feels free to pull request.
