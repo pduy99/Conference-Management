@@ -32,3 +32,55 @@
     `<property name="connection.username">root</property>` : username truy cập vào cơ sở dữ liệu
     `<property name="connection.password">Snowwhite99#</property>` : Password của username để truy cập vào cơ sở dữ liệu
 
+## Screenshots
+
+  ### 1. Sign In / Sign Up Screen
+  
+  Main Screen            |  Select trending period    |
+:-------------------------:|:-------------------------:
+![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/signin.png?raw=true) |  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/signup.png?raw=true) 
+
+  ### 2. MainScreen
+  You can Login as Guest to see MainScreen but cannot enroll any conferences
+  
+   Main Screen            |  Select trending period    |
+:-------------------------:|:-------------------------:
+![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/guest_login.png?raw=true) |  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/tableview.png?raw=true) 
+
+  ### 3. Conference Detail
+  Guest can also view conference's detail
+  
+  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/detail.png?raw=true)
+
+  ### 4. Login dialog
+  Guest can login via dialog
+  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/login_dialog.png?raw=true)
+  
+  ### 5. Enroll Conference
+![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/enroll.png?raw=true)
+
+  ### 6. My enrolled conferences
+
+![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/my_conferences.png?raw=true)
+
+  ### 7. Search Conference
+
+![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/search.png?raw=true)
+
+  ### 8. Profile
+Profile            |  Edit Profile    | Change Password |
+:-------------------------:|:-------------------------:|:---------------------:
+![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/profile.png?raw=true) |  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/edit_profile.png?raw=true) | ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/change_password.png?raw=true)
+
+  ### 9. Dashboard
+  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/Dashboard.png?raw=true)
+  
+  ### 10. Admin Manage Conferences
+  
+ Conference Manage Screen            |  Edit Conference    |
+:-------------------------:|:-------------------------:
+![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/manage_conference.png?raw=true) |  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/edit_conference.png?raw=true) 
+  
+  ### 11. Admin Approve/Disapprove Request Enrollment
+  ![alt text](https://github.com/pduy99/Conference-Management/blob/master/screenshot/management_pendingList.png?raw=true)
+  
