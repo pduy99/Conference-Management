@@ -31,7 +31,8 @@
     ` <property name="connection.url">jdbc:mysql://localhost:3306/ql_hoinghi</property>` : port và tên cơ sở dữ liệu 
     `<property name="connection.username">root</property>` : username truy cập vào cơ sở dữ liệu
     `<property name="connection.password">Snowwhite99#</property>` : Password của username để truy cập vào cơ sở dữ liệu
-
+  - Password mặc định cho username: user123
+  - Username và password cho Admin: admin - admin123
 ## Screenshots
 
   ### 1. Màn hình đăng nhập / đăng kí
